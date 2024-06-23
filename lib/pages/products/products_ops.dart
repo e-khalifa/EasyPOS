@@ -5,8 +5,8 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/product.dart';
-import '../../widgets/app_widgets/app_elevated_button.dart';
-import '../../widgets/app_widgets/app_text_field.dart';
+import '../../widgets/app_widgets/my_elevated_button.dart';
+import '../../widgets/app_widgets/my_text_field.dart';
 import '../../widgets/products_widgets/categories_drop_down.dart';
 import '../../widgets/products_widgets/is_available_switch.dart';
 
@@ -65,7 +65,7 @@ class _ProductsOpsPageState extends State<ProductsOpsPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                AppTextField(
+                MyTextField(
                   label: 'Product Name',
                   controller: nameController,
                   validator: (value) {
@@ -76,7 +76,7 @@ class _ProductsOpsPageState extends State<ProductsOpsPage> {
                   },
                 ),
                 const SizedBox(height: 20),
-                AppTextField(
+                MyTextField(
                     label: 'Description', controller: descriptionController),
                 const SizedBox(height: 20),
                 //Calling categories drop down menu
@@ -94,7 +94,7 @@ class _ProductsOpsPageState extends State<ProductsOpsPage> {
                       return null;
                     }),
                 const SizedBox(height: 20),
-                AppTextField(
+                MyTextField(
                   label: 'Add your image URL here',
                   controller: imageController,
                 ),
@@ -102,7 +102,7 @@ class _ProductsOpsPageState extends State<ProductsOpsPage> {
                 Row(
                   children: [
                     Expanded(
-                      child: AppTextField(
+                      child: MyTextField(
                         label: 'Price',
                         controller: priceController,
                         keyboardType: TextInputType.number,
@@ -121,7 +121,7 @@ class _ProductsOpsPageState extends State<ProductsOpsPage> {
                       width: 10,
                     ),
                     Expanded(
-                      child: AppTextField(
+                      child: MyTextField(
                         label: 'Stock',
                         controller: stockController,
                         keyboardType: TextInputType.number,
@@ -156,7 +156,7 @@ class _ProductsOpsPageState extends State<ProductsOpsPage> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                AppElevatedButton(
+                MyElevatedButton(
                     label: 'Submit',
                     onPressed: () async {
                       await onSubmittedProduct();

@@ -5,8 +5,8 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/client.dart';
-import '../../widgets/app_widgets/app_elevated_button.dart';
-import '../../widgets/app_widgets/app_text_field.dart';
+import '../../widgets/app_widgets/my_elevated_button.dart';
+import '../../widgets/app_widgets/my_text_field.dart';
 
 class ClientsOpsPage extends StatefulWidget {
   final Client? client;
@@ -49,7 +49,7 @@ class _ClientsOpsPageState extends State<ClientsOpsPage> {
           key: formKey,
           child: Column(
             children: [
-              AppTextField(
+              MyTextField(
                 label: 'Name',
                 controller: nameController,
                 validator: (value) {
@@ -60,7 +60,7 @@ class _ClientsOpsPageState extends State<ClientsOpsPage> {
                 },
               ),
               const SizedBox(height: 20),
-              AppTextField(
+              MyTextField(
                 label: 'phone',
                 controller: phoneController,
                 keyboardType: TextInputType.number,
@@ -79,11 +79,11 @@ class _ClientsOpsPageState extends State<ClientsOpsPage> {
                 },
               ),
               const SizedBox(height: 20),
-              AppTextField(label: 'address', controller: addressController),
+              MyTextField(label: 'address', controller: addressController),
               const SizedBox(height: 20),
-              AppTextField(label: 'Email', controller: emailController),
+              MyTextField(label: 'Email', controller: emailController),
               const SizedBox(height: 20),
-              AppElevatedButton(
+              MyElevatedButton(
                   label: 'Submit',
                   onPressed: () async {
                     await onSubmittedClient();

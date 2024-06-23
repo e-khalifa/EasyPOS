@@ -6,10 +6,11 @@ import 'pages/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   var sqlHelper = SqlHelper();
   await sqlHelper.initDb();
   if (sqlHelper.db != null) {
-    GetIt.I.registerSingleton<SqlHelper>(sqlHelper);
+    GetIt.I.registerSingleton(sqlHelper);
   }
 
   runApp(const MyApp());
@@ -17,6 +18,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

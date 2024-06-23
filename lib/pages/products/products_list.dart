@@ -1,11 +1,11 @@
+import 'package:easy_pos_project/widgets/app_widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:route_transitions/route_transitions.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/product.dart';
-import '../../widgets/app_widgets/app_search_field.dart';
-import '../../widgets/product_grid_view.dart';
+import '../../widgets/products_widgets/product_grid_view.dart';
 import 'products_ops.dart';
 
 /*
@@ -20,7 +20,8 @@ Products:
 enum StockFilter { all, inventory, outOfStock }
 
 class ProductsListPage extends StatefulWidget {
-  const ProductsListPage({super.key});
+  int selectedTabIndex;
+  ProductsListPage({required this.selectedTabIndex, super.key});
 
   @override
   _ProductsListPageState createState() => _ProductsListPageState();
@@ -31,9 +32,10 @@ class _ProductsListPageState extends State<ProductsListPage>
   late TabController _tabController;
   var sqlHelper = GetIt.I.get<SqlHelper>();
   List<Product> products = [];
-  String? selectedSorting = 'Modification time';
+  String? selectedSorting;
   StockFilter currentFilter = StockFilter.all;
   bool notFoundOnSearch = false;
+  bool isLoading = false;
 
   var sortingChoices = [
     'Modification time',
@@ -47,7 +49,8 @@ class _ProductsListPageState extends State<ProductsListPage>
   @override
   void initState() {
     getProducts(); // Fetch Products when the widget initializes
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(
+        length: 3, vsync: this, initialIndex: widget.selectedTabIndex);
     _tabController.addListener(_handleTabSelection);
     super.initState();
   }
@@ -146,106 +149,65 @@ class _ProductsListPageState extends State<ProductsListPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 124,
-          title: const Text('Products'),
-          actions: [
-            PopupMenuButton<String>(
+        appBar: MyAppBar(
+          title: 'Products',
+          sortingChoices: sortingChoices,
+          onSelected: (String choice) async {
+            if (choice == 'Sort by') {
+              showMenu<String>(
                 constraints:
-                    const BoxConstraints.expand(width: 150, height: 115),
+                    const BoxConstraints.expand(width: 180, height: 305),
                 surfaceTintColor: Colors.white,
-                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                      const PopupMenuItem<String>(
-                        value: 'Refresh',
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Text('Refresh'),
-                        ),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'Sort by',
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Text('Sort by'),
-                        ),
-                      ),
-                    ],
-                onSelected: (String choice) {
-                  if (choice == 'Sort by') {
-                    showMenu<String>(
-                      constraints:
-                          const BoxConstraints.expand(width: 180, height: 305),
-                      surfaceTintColor: Colors.white,
-                      context: context,
-                      position:
-                          const RelativeRect.fromLTRB(double.infinity, 0, 0, 0),
-                      items: sortingChoices.map((String item) {
-                        return PopupMenuItem<String>(
-                          value: item,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(item),
-                          ),
-                        );
-                      }).toList(),
-                    ).then((String? value) {
-                      if (value != null) {
-                        setState(() {
-                          selectedSorting = value;
-                        });
-                        getProducts(filter: currentFilter, sort: value);
-                      }
-                    });
-                  } else if (choice == 'Refresh') {
-                    getProducts();
-                  }
-                })
+                context: context,
+                position: const RelativeRect.fromLTRB(double.infinity, 0, 0, 0),
+                items: sortingChoices.map((String item) {
+                  return PopupMenuItem<String>(
+                    value: item,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(item),
+                    ),
+                  );
+                }).toList(),
+              ).then((String? value) {
+                if (value != null) {
+                  setState(() {
+                    selectedSorting = value;
+                  });
+                  getProducts(filter: currentFilter, sort: value);
+                }
+              });
+            } else if (choice == 'Refresh') {
+              setState(() {
+                isLoading = true; // Show the loading indicator
+              });
+
+              // Introduce a delay before calling the function
+              await Future.delayed(Duration(milliseconds: 600));
+              await getProducts();
+
+              // Hide the loading indicator
+              setState(() {
+                isLoading = false;
+              });
+            }
+          },
+          Controller: _tabController,
+          tabs: const [
+            Tab(text: 'All'),
+            Tab(text: 'Inventory'),
+            Tab(text: 'Out-of-Stock')
           ],
-          bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(kToolbarHeight),
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: TabBar(
-                        dividerColor: Colors.grey,
-                        controller: _tabController,
-                        unselectedLabelColor: Colors.white,
-                        labelColor: Colors.black,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        indicator: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                          color: Colors.white,
-                        ),
-                        labelStyle: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                        tabs: const [
-                          Tab(text: 'All'),
-                          Tab(text: 'Inventory'),
-                          Tab(text: 'Out-of-Stock')
-                        ]),
-                  ),
-                  Container(
-                    color: Colors.white,
-                    padding:
-                        const EdgeInsets.only(top: 20, right: 20, left: 20),
-                    child: AppSearchField(
-                      label: 'Search for any Product',
-                      //if the search field is empty, nothing change
+          searchLabel: 'Search for any Product',
+          onSearchTextChanged: (text) async {
+            try {
+              if (text.isEmpty) {
+                getProducts();
+                return;
+              }
 
-                      onSearchTextChanged: (text) async {
-                        try {
-                          if (text.isEmpty) {
-                            getProducts();
-                            return;
-                          }
-
-                          //search the data (name/desciption) for the text provided
-                          final data = await sqlHelper.db!.rawQuery('''
+              //search the data (name/desciption) for the text provided
+              final data = await sqlHelper.db!.rawQuery('''
                                     SELECT P.*, C.name as categoryName FROM products P
                                     INNER JOIN categories C ON P.categoryId = C.id
                                     WHERE P.name LIKE '%$text%'
@@ -253,36 +215,36 @@ class _ProductsListPageState extends State<ProductsListPage>
                                     Or c.name LIKE '%$text%'
                                   ''');
 
-                          //if anything related found, map it to a list
-                          if (data.isNotEmpty) {
-                            products = data
-                                .map((item) => Product.fromJson(item))
-                                .toList();
+              //if anything related found, map it to a list
+              if (data.isNotEmpty) {
+                products = data.map((item) => Product.fromJson(item)).toList();
 
-                            //nothing found? empty list
-                          } else {
-                            notFoundOnSearch = true;
-                            products = [];
-                          }
-                        } catch (e) {
-                          print('Error in search products: $e');
-                        }
-                        setState(() {});
-                      },
-                    ),
-                  )
-                ],
-              )),
+                //nothing found? empty list
+              } else {
+                notFoundOnSearch = true;
+                products = [];
+              }
+            } catch (e) {
+              print('Error in search products: $e');
+            }
+            setState(() {});
+          },
         ),
         body: products.isEmpty
             ? notFoundOnSearch
                 ? const SizedBox()
                 : const Center(
-                    child: Text('No Categories Found'),
+                    child: Text('No Products Found'),
                   )
             : Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(children: [
+                  isLoading
+                      ? CircularProgressIndicator(
+                          color: Theme.of(context).primaryColor,
+                          strokeWidth: 3,
+                        )
+                      : SizedBox(),
                   Expanded(
                     child: GridView.builder(
                         gridDelegate:

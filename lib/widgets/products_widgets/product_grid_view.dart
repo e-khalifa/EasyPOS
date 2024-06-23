@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_pos_project/widgets/app_widgets/item_deleted_dialog.dart';
+import 'package:easy_pos_project/widgets/app_widgets/my_item_deleted_dialog.dart';
 import 'package:flutter/material.dart';
 
 class ProductGridViewItem extends StatelessWidget {
@@ -68,15 +68,15 @@ class ProductGridViewItem extends StatelessWidget {
                 left: 0,
                 child: IconButton(
                   icon: const Icon(Icons.delete),
+                  color: Colors.red,
                   onPressed: () {
                     showDialog(
                         context: context,
                         builder: (context) {
-                          return ItemDeletedDialog(
+                          return MyItemDeletedDialog(
                               item: name, onDeleteditem: onDeleted);
                         });
                   },
-                  color: Colors.red,
                 )),
           ]),
           const SizedBox(

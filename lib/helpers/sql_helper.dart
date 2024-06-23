@@ -31,9 +31,8 @@ class SqlHelper {
   /* Creating tables:
                      1- Categories
                      2- Products
-                     3- Iventory
-                     4- Clients
-                     5- Sales*/
+                     3-  Clients
+                     4- Sales*/
   Future<bool> createTables() async {
     try {
       var batch = db!.batch();
@@ -43,7 +42,8 @@ class SqlHelper {
         CREATE TABLE IF NOT EXISTS categories(
           id INTEGER PRIMARY KEY,
           name TEXT NOT NULL,
-          description TEXT
+          description TEXT,
+          status TEXT
         )
       ''');
       print('Categories table created.');
@@ -64,16 +64,6 @@ class SqlHelper {
         )
       ''');
       print('Products table created.');
-
-      // Iventory table
-      batch.execute('''
-        CREATE TABLE IF NOT EXISTS inventory (
-          productId INTEGER PRIMARY KEY,
-          quantity INTEGER NOT NULL,
-          FOREIGN KEY(productId) REFERENCES products(id)
-       )
-      ''');
-      print('Iventory table created.');
 
       // Clients table
       batch.execute('''

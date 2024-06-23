@@ -4,8 +4,8 @@ import 'package:route_transitions/route_transitions.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/client.dart';
-import '../../widgets/app_widgets/app_search_field.dart';
-import '../../widgets/list_card.dart';
+import '../../widgets/app_widgets/my_search_field.dart';
+import '../../widgets/app_widgets/my_card.dart';
 import 'clients_ops.dart';
 
 class ClientsListPage extends StatefulWidget {
@@ -73,7 +73,7 @@ class _ClientsListPageState extends State<ClientsListPage> {
                 child: Column(
                   children: [
                     //calling searchfield
-                    AppSearchField(
+                    MySearchField(
                       label: 'Search for any Client',
 
                       //if the search field is empty, nothing change
@@ -115,7 +115,7 @@ class _ClientsListPageState extends State<ClientsListPage> {
                             print('Client: ${client.name}');
 
                             //caling listcard
-                            return ListCard(
+                            return MyCard(
                               onDeleted: () => onDeleteClient(client),
                               onEdit: () {
                                 slideRightWidget(

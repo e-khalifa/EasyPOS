@@ -2,6 +2,7 @@ class Category {
   int? id;
   String? name;
   String? description;
+  String? selectedStatus;
 
   Category();
 
@@ -9,9 +10,15 @@ class Category {
     id = json['id'];
     name = json['name'];
     description = json['description'];
+    selectedStatus = json['status'];
   }
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'name': name, 'description': description};
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'status': selectedStatus
+    };
   }
 }

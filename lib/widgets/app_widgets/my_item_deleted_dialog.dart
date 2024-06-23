@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-class ItemDeletedDialog extends StatelessWidget {
+class MyItemDeletedDialog extends StatelessWidget {
   Future<void> Function() onDeleteditem;
   String? item;
 
-  ItemDeletedDialog(
+  MyItemDeletedDialog(
       {required this.item, required this.onDeleteditem, super.key});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.white,
       title: const Text('Confirm Deleting'),
       content: const Text('Are you sure you want to delete this item?'),
       actions: [

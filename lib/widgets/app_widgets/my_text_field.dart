@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AppTextField extends StatelessWidget {
+class MyTextField extends StatelessWidget {
   final String label;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
 
-  const AppTextField(
+  const MyTextField(
       {required this.label,
       required this.controller,
       this.validator,

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class AppSearchField extends StatefulWidget {
+class MySearchField extends StatefulWidget {
   String label;
   final ValueChanged<String> onSearchTextChanged;
 
-  AppSearchField(
+  MySearchField(
       {required this.onSearchTextChanged, required this.label, super.key});
 
   @override
-  _AppSearchFieldState createState() => _AppSearchFieldState();
+  _MySearchFieldState createState() => _MySearchFieldState();
 }
 
-class _AppSearchFieldState extends State<AppSearchField> {
+class _MySearchFieldState extends State<MySearchField> {
   @override
   Widget build(BuildContext context) {
     return TextField(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class AppElevatedButton extends StatelessWidget {
+class MyElevatedButton extends StatelessWidget {
   final String label;
   final Function() onPressed;
-  const AppElevatedButton(
+  const MyElevatedButton(
       {required this.label, required this.onPressed, super.key});
 
   @override

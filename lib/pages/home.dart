@@ -90,7 +90,8 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.pink,
                     onTap: () {
                       slideRightWidget(
-                          newPage: const ProductsListPage(), context: context);
+                          newPage: ProductsListPage(selectedTabIndex: 0),
+                          context: context);
                     },
                   ),
                   CustomGridViewItem(
@@ -124,7 +125,11 @@ class _HomePageState extends State<HomePage> {
                     label: 'Iventory',
                     icon: Icons.inventory,
                     color: Colors.purple,
-                    onTap: () {},
+                    onTap: () {
+                      slideRightWidget(
+                          newPage: ProductsListPage(selectedTabIndex: 1),
+                          context: context);
+                    },
                   ),
                 ],
               ),
