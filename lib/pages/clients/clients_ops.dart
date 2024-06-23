@@ -131,7 +131,7 @@ class _ClientsOpsPageState extends State<ClientsOpsPage> {
           content: Text(
             widget.client == null
                 ? 'Client added Successfully!'
-                : 'Client Updated Successfully!',
+                : 'Changes saved! Refresh to view the updtaed items',
             textAlign: TextAlign.center,
             style: const TextStyle(color: Colors.white),
           ),

@@ -25,13 +25,13 @@ class _CategoriesOpsPageState extends State<CategoriesOpsPage> {
 
   @override
   void initState() {
-    try{
-    if (widget.category != null) {
-      // Setting initial values for editing an existing category
-      nameController.text = widget.category!.name!;
-      descriptionController.text = widget.category!.description!;
-      selectedStatus = widget.category!.selectedStatus;
-       }
+    try {
+      if (widget.category != null) {
+        // Setting initial values for editing an existing category
+        nameController.text = widget.category!.name!;
+        descriptionController.text = widget.category!.description!;
+        selectedStatus = widget.category!.selectedStatus;
+      }
     } catch (e) {
       // Handle the error
       print('An error occurred in edditing category: $e');
@@ -148,7 +148,7 @@ class _CategoriesOpsPageState extends State<CategoriesOpsPage> {
             content: Text(
               widget.category == null
                   ? 'Category added Successfully!'
-                  : 'Category Updated Successfully!',
+                  : 'Changes saved! Refresh to view the updtaed items',
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.white),
             ),

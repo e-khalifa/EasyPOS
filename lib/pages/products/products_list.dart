@@ -184,7 +184,7 @@ class _ProductsListPageState extends State<ProductsListPage>
 
               // Introduce a delay before calling the function
               await Future.delayed(Duration(milliseconds: 600));
-              await getProducts();
+              await getProducts(filter: currentFilter, sort: selectedSorting);
 
               // Hide the loading indicator
               setState(() {

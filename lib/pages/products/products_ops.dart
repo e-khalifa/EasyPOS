@@ -213,7 +213,7 @@ class _ProductsOpsPageState extends State<ProductsOpsPage> {
             content: Text(
               widget.product == null
                   ? 'Product added Successfully!'
-                  : 'Changes saved! Refresh to view the updtaed products',
+                  : 'Changes saved! Refresh to view the updtaed item',
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.white),
             ),

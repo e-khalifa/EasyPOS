@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'my_item_deleted_dialog.dart';
 
 class MyCard extends StatelessWidget {
-  Future<void> Function() onDeleted;
-  void Function()? onEdit;
-  final Widget? customWidget; // For customizing elements for each page
-
+  final Future<void> Function() onDeleted;
+  final void Function()? onEdit;
+  final Widget? customWidget;
   final String? name;
   final String? description;
   final String? phone;
@@ -14,7 +13,6 @@ class MyCard extends StatelessWidget {
   final String? email;
 
   MyCard({
-    super.key,
     required this.onDeleted,
     required this.onEdit,
     required this.customWidget,
@@ -30,39 +28,55 @@ class MyCard extends StatelessWidget {
     return Card(
       color: const Color.fromARGB(255, 250, 250, 250),
       surfaceTintColor: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: ListTile(
-          leading: SizedBox(height: 900, width: 0),
-          title: Text(
-            name!,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          subtitle: customWidget,
-          trailing: Column(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Stack(
+        children: [
+          Column(
             children: [
-              IconButton(
-                onPressed: onEdit,
-                icon: const Icon(Icons.edit),
-                color: Theme.of(context).primaryColor,
+              ListTile(
+                contentPadding: EdgeInsets.all(15),
+                title: Text(
+                  name!,
+                  style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black54),
+                ),
+                subtitle: customWidget,
               ),
-              IconButton(
-                  icon: const Icon(Icons.delete),
-                  color: Colors.red,
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return MyItemDeletedDialog(
-                              item: name, onDeleteditem: onDeleted);
-                        });
-                  }),
             ],
           ),
-        ),
+          Positioned(
+            top: 0,
+            right: 0,
+            child: IconButton(
+              icon: const Icon(Icons.edit),
+              onPressed: onEdit,
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: IconButton(
+              icon: const Icon(Icons.delete),
+              color: Colors.red,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return MyItemDeletedDialog(
+                      item: name,
+                      onDeleteditem: onDeleted,
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

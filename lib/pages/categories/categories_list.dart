@@ -5,7 +5,6 @@ import 'package:route_transitions/route_transitions.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/category.dart';
-import '../../widgets/app_widgets/my_search_field.dart';
 import '../../widgets/app_widgets/my_card.dart';
 import 'categories_ops.dart';
 
@@ -149,7 +148,7 @@ class _CategoriesListPageState extends State<CategoriesListPage>
 
               // Introduce a delay before calling the function
               await Future.delayed(Duration(milliseconds: 600));
-              await getCategories();
+              await getCategories(filter: currentFilter, sort: selectedSorting);
 
               // Hide the loading indicator
               setState(() {
