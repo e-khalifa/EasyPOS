@@ -61,20 +61,9 @@ class MyCard extends StatelessWidget {
             bottom: 0,
             right: 0,
             child: IconButton(
-              icon: const Icon(Icons.delete),
-              color: Colors.red,
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return MyItemDeletedDialog(
-                      item: name,
-                      onDeleteditem: onDeleted,
-                    );
-                  },
-                );
-              },
-            ),
+                icon: const Icon(Icons.delete),
+                color: Colors.red,
+                onPressed: onDeleted),
           ),
         ],
       ),

@@ -5,6 +5,13 @@ import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 class SqlHelper {
   Database? db;
 
+  Future<void> registerForeignKeys() async {
+    await db!.rawQuery('PRAGMA foreign_keys = on');
+    var result = await db!.rawQuery('PRAGMA foreign_keys');
+
+    print(result);
+  }
+
   // Creating database
   Future<void> initDb() async {
     try {
@@ -31,10 +38,14 @@ class SqlHelper {
   /* Creating tables:
                      1- Categories
                      2- Products
-                     3-  Clients
-                     4- Sales*/
+                     3- Clients
+                     4- Orders
+                     5- Order Product Items*/
+
   Future<bool> createTables() async {
     try {
+      await registerForeignKeys();
+
       var batch = db!.batch();
 
       // Categories table
@@ -77,17 +88,30 @@ class SqlHelper {
       ''');
       print('Clients table created.');
 
-      // Sales table
+      // Orders table
       batch.execute('''
-        CREATE TABLE IF NOT EXISTS sales (
+        CREATE TABLE IF NOT EXISTS orders (
           id INTEGER PRIMARY KEY,
-          saleDate TEXT NOT NULL,
-          totalAmount DOUBLE NOT NULL,
+          label TEXT NOT NULL,
+          totalPrice DOUBLE NOT NULL,
           clientId INTEGER,
           FOREIGN KEY(clientId) REFERENCES clients(id)
+          ON Delete restrict
         )
       ''');
-      print('Sales table created.');
+      print('Orders table created.');
+
+      // OrderProductItems table
+      batch.execute('''
+        CREATE TABLE IF NOT EXISTS orderProductItems (
+          orderId INTEGER,
+          productCount INTEGER,
+          productId INTEGER,
+          FOREIGN KEY(productId) REFERENCES products(id)
+          ON Delete restrict
+        )
+      ''');
+      print('OrderProductItems table created.');
 
       var result = await batch.commit();
       print('Tables created: $result');

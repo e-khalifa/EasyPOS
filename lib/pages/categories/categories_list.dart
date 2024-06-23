@@ -6,6 +6,7 @@ import 'package:route_transitions/route_transitions.dart';
 import '../../helpers/sql_helper.dart';
 import '../../models/category.dart';
 import '../../widgets/app_widgets/my_card.dart';
+import '../../widgets/app_widgets/my_item_deleted_dialog.dart';
 import 'categories_ops.dart';
 
 enum StatusFilter { all, newArrivals, specialOffers }
@@ -244,10 +245,19 @@ class _CategoriesListPageState extends State<CategoriesListPage>
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat);
   }
 
-  //Deleting category
-  Future<void> onDeleteCategory(Category category) async {
-    await sqlHelper.db!
-        .delete('categories', where: 'id =?', whereArgs: [category.id]);
-    getCategories();
+  //Deleting product
+  Future<void> onDeleteCategory(Category category) {
+    //Callling itemDeleted dialog
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return MyItemDeletedDialog(
+              item: category.name,
+              onDeleteditem: () async {
+                await sqlHelper.db!.delete('categories',
+                    where: 'id =?', whereArgs: [category.id]);
+                getCategories();
+              });
+        });
   }
 }

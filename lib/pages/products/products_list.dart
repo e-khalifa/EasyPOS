@@ -5,6 +5,7 @@ import 'package:route_transitions/route_transitions.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/product.dart';
+import '../../widgets/app_widgets/my_item_deleted_dialog.dart';
 import '../../widgets/products_widgets/product_grid_view.dart';
 import 'products_ops.dart';
 
@@ -56,21 +57,25 @@ class _ProductsListPageState extends State<ProductsListPage>
   }
 
   void _handleTabSelection() {
-    if (_tabController.indexIsChanging) return;
-    setState(() {
-      switch (_tabController.index) {
-        case 0:
-          currentFilter = StockFilter.all;
-          break;
-        case 1:
-          currentFilter = StockFilter.inventory;
-          break;
-        case 2:
-          currentFilter = StockFilter.outOfStock;
-          break;
-      }
-      getProducts(filter: currentFilter, sort: selectedSorting);
-    });
+    try {
+      if (_tabController.indexIsChanging) return;
+      setState(() {
+        switch (_tabController.index) {
+          case 0:
+            currentFilter = StockFilter.all;
+            break;
+          case 1:
+            currentFilter = StockFilter.inventory;
+            break;
+          case 2:
+            currentFilter = StockFilter.outOfStock;
+            break;
+        }
+        getProducts(filter: currentFilter, sort: selectedSorting);
+      });
+    } catch (e) {
+      print('Error in filtering products $e');
+    }
   }
 
   //mapping data to list
@@ -198,6 +203,8 @@ class _ProductsListPageState extends State<ProductsListPage>
             Tab(text: 'Inventory'),
             Tab(text: 'Out-of-Stock')
           ],
+
+          //Searchbar
           searchLabel: 'Search for any Product',
           onSearchTextChanged: (text) async {
             try {
@@ -252,7 +259,7 @@ class _ProductsListPageState extends State<ProductsListPage>
                           crossAxisCount: 2,
                           crossAxisSpacing: 5,
                           mainAxisSpacing: 5,
-                          childAspectRatio: 0.70,
+                          childAspectRatio: 0.76,
                         ),
                         itemCount: products.length,
                         itemBuilder: (context, index) {
@@ -261,18 +268,23 @@ class _ProductsListPageState extends State<ProductsListPage>
 
                           //calling listcard
                           return ProductGridViewItem(
+                              showCategory: true,
                               imageUrl: product.image,
                               name: product.name,
                               description: product.description,
                               category: product.categoryName,
                               stock: product.stock,
                               price: product.price,
-                              onDeleted: () => onDeleteProduct(product),
-                              onEdit: () {
+                              righticon: Icons.edit,
+                              rightIconColor: Theme.of(context).primaryColor,
+                              rightIconPressed: () {
                                 slideRightWidget(
                                     newPage: ProductsOpsPage(product: product),
                                     context: context);
-                              });
+                              },
+                              leftIcon: Icons.delete,
+                              leftIconColor: Colors.red,
+                              leftIconPressed: () => onDeleteProduct(product));
                         }),
                   ),
                 ]),
@@ -294,9 +306,18 @@ class _ProductsListPageState extends State<ProductsListPage>
   }
 
   //Deleting product
-  Future<void> onDeleteProduct(Product product) async {
-    await sqlHelper.db!
-        .delete('products', where: 'id =?', whereArgs: [product.id]);
-    getProducts();
+  Future<void> onDeleteProduct(Product product) {
+    //Callling itemDeleted dialog
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return MyItemDeletedDialog(
+              item: product.name,
+              onDeleteditem: () async {
+                await sqlHelper.db!.delete('products',
+                    where: 'id =?', whereArgs: [product.id]);
+                getProducts();
+              });
+        });
   }
 }

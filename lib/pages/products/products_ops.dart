@@ -77,7 +77,15 @@ class _ProductsOpsPageState extends State<ProductsOpsPage> {
                 ),
                 const SizedBox(height: 20),
                 MyTextField(
-                    label: 'Description', controller: descriptionController),
+                  label: 'Description',
+                  controller: descriptionController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'This Field is required';
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(height: 20),
                 //Calling categories drop down menu
                 CategoriesDropDown(

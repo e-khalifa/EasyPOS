@@ -7,6 +7,7 @@ import 'package:route_transitions/route_transitions.dart';
 import '../../helpers/sql_helper.dart';
 import '../../models/client.dart';
 import '../../widgets/app_widgets/my_card.dart';
+import '../../widgets/app_widgets/my_item_deleted_dialog.dart';
 import 'clients_ops.dart';
 
 enum StatusFilter { all, localClients }
@@ -254,10 +255,19 @@ WHERE COALESCE(address, '') <> ''
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat);
   }
 
-  //Deleting client
-  Future<void> onDeleteClient(Client client) async {
-    await sqlHelper.db!
-        .delete('clients', where: 'id =?', whereArgs: [client.id]);
-    getClients();
+  //Deleting product
+  Future<void> onDeleteClient(Client client) {
+    //Callling itemDeleted dialog
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return MyItemDeletedDialog(
+              item: client.name,
+              onDeleteditem: () async {
+                await sqlHelper.db!
+                    .delete('products', where: 'id =?', whereArgs: [client.id]);
+                getClients();
+              });
+        });
   }
 }

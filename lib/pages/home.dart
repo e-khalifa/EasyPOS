@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:route_transitions/route_transitions.dart';
 
-import '../widgets/custom_grid_view_item.dart';
-import '../widgets/header_card.dart';
+import '../widgets/home_widgets/custom_grid_view_item.dart';
+import '../widgets/home_widgets/header_card.dart';
 import 'categories/categories_list.dart';
 import 'clients/clients_list.dart';
 import 'products/products_list.dart';
