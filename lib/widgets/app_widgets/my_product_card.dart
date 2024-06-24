@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_pos_project/widgets/app_widgets/my_item_deleted_dialog.dart';
 import 'package:flutter/material.dart';
 
 /*Used in {
@@ -7,7 +6,7 @@ import 'package:flutter/material.dart';
            - SelectingOrderItemPage
 
 }*/
-class ProductGridViewItem extends StatelessWidget {
+class MyProductCard extends StatelessWidget {
   final String? name;
   final String? description;
   final String? category;
@@ -15,27 +14,33 @@ class ProductGridViewItem extends StatelessWidget {
   final int? stock;
   final String? imageUrl;
   final IconData leftIcon;
-  final IconData righticon;
+  IconData? rightIcon;
   final Color? rightIconColor;
   final Color? leftIconColor;
+  var rightWidget;
 
   bool showCategory = false;
+  bool showWidget = false;
 
   Future<void> Function() leftIconPressed;
   void Function()? rightIconPressed;
+  void Function()? rightPressed;
 
-  ProductGridViewItem({
+  MyProductCard({
     super.key,
     required this.name,
     required this.description,
     required this.leftIconPressed,
     required this.rightIconPressed,
+    this.rightPressed,
     required this.price,
     required this.stock,
     required this.showCategory,
+    required this.showWidget,
     required this.leftIcon,
-    required this.righticon,
-    required this.rightIconColor,
+    this.rightWidget,
+    this.rightIcon,
+    this.rightIconColor,
     required this.leftIconColor,
     this.category,
     this.imageUrl,
@@ -78,20 +83,32 @@ class ProductGridViewItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                    top: 0,
-                    right: 0,
-                    child: IconButton(
-                      icon: Icon(righticon),
-                      onPressed: rightIconPressed,
-                      color: rightIconColor,
-                    )),
+
+                //Somhow widget didn't have the same position as the icon with the same values
+                showWidget
+                    ? Positioned(
+                        top: 10,
+                        right: 10,
+                        child: InkWell(
+                          child: rightWidget,
+                          onTap: rightPressed,
+                        ))
+                    : Positioned(
+                        top: 0,
+                        right: 0,
+                        child: IconButton(
+                          icon: Icon(rightIcon),
+                          iconSize: 25,
+                          onPressed: rightIconPressed,
+                          color: rightIconColor,
+                        )),
                 Positioned(
                     top: 0,
                     left: 0,
                     child: IconButton(
                       icon: Icon(leftIcon),
                       color: leftIconColor,
+                      iconSize: 25,
                       onPressed: leftIconPressed,
                     )),
               ]),

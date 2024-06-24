@@ -108,7 +108,10 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.green,
                     onTap: () {
                       slideRightWidget(
-                          newPage: const SalesOpsPage(), context: context);
+                          newPage: SalesOpsPage(
+                            selectedOrderItems: [],
+                          ),
+                          context: context);
                     },
                   ),
                   CustomGridViewItem(

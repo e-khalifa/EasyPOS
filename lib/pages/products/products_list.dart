@@ -6,7 +6,7 @@ import 'package:route_transitions/route_transitions.dart';
 import '../../helpers/sql_helper.dart';
 import '../../models/product.dart';
 import '../../widgets/app_widgets/my_item_deleted_dialog.dart';
-import '../../widgets/products_widgets/product_grid_view.dart';
+import '../../widgets/app_widgets/my_product_card.dart';
 import 'products_ops.dart';
 
 /*
@@ -267,7 +267,8 @@ class _ProductsListPageState extends State<ProductsListPage>
                           print('Product: ${product.name}');
 
                           //calling listcard
-                          return ProductGridViewItem(
+                          return MyProductCard(
+                              showWidget: false,
                               showCategory: true,
                               imageUrl: product.image,
                               name: product.name,
@@ -275,7 +276,7 @@ class _ProductsListPageState extends State<ProductsListPage>
                               category: product.categoryName,
                               stock: product.stock,
                               price: product.price,
-                              righticon: Icons.edit,
+                              rightIcon: Icons.edit,
                               rightIconColor: Theme.of(context).primaryColor,
                               rightIconPressed: () {
                                 slideRightWidget(

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'my_item_deleted_dialog.dart';
-
 class MyCard extends StatelessWidget {
   final Future<void> Function() onDeleted;
   final void Function()? onEdit;

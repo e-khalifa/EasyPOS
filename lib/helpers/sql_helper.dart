@@ -8,8 +8,6 @@ class SqlHelper {
   Future<void> registerForeignKeys() async {
     await db!.rawQuery('PRAGMA foreign_keys = on');
     var result = await db!.rawQuery('PRAGMA foreign_keys');
-
-    print(result);
   }
 
   // Creating database
@@ -45,7 +43,6 @@ class SqlHelper {
   Future<bool> createTables() async {
     try {
       await registerForeignKeys();
-
       var batch = db!.batch();
 
       // Categories table
