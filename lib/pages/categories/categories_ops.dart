@@ -68,15 +68,15 @@ class _CategoriesOpsPageState extends State<CategoriesOpsPage> {
                 const SizedBox(height: 20),
                 DropdownButtonFormField(
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(left: 25, right: 10),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: Theme.of(context).primaryColor),
+                      borderSide: BorderSide(
+                          width: 2, color: Theme.of(context).primaryColor),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(width: 2, color: Colors.grey.shade300),
+                      borderSide: BorderSide(color: Colors.grey.shade300),
                     ),
                   ),
                   hint: Text('Choose Category Status'),

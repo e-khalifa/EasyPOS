@@ -265,7 +265,7 @@ WHERE COALESCE(address, '') <> ''
               item: client.name,
               onDeleteditem: () async {
                 await sqlHelper.db!
-                    .delete('products', where: 'id =?', whereArgs: [client.id]);
+                    .delete('clients', where: 'id =?', whereArgs: [client.id]);
                 getClients();
               });
         });

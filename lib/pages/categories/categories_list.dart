@@ -220,9 +220,22 @@ class _CategoriesListPageState extends State<CategoriesListPage>
                                     context: context);
                               },
                               name: category.name,
-                              customWidget: Text(
-                                category.description!,
-                                style: const TextStyle(fontSize: 14),
+                              customWidget: Row(
+                                children: [
+                                  Icon(Icons.circle,
+                                      size: 10,
+                                      color: category.selectedStatus ==
+                                              'New Arrivals'
+                                          ? Colors.green
+                                          : category.selectedStatus ==
+                                                  'Special Offers'
+                                              ? Colors.green
+                                              : Colors.transparent),
+                                  Text(
+                                    category.description!,
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                ],
                               ),
                             );
                           }),

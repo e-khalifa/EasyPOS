@@ -90,7 +90,10 @@ class SqlHelper {
         CREATE TABLE IF NOT EXISTS orders (
           id INTEGER PRIMARY KEY,
           label TEXT NOT NULL,
-          totalPrice DOUBLE NOT NULL,
+          orginalPrice DOUBLE NOT NULL,
+          discount DOUBLE,
+          discountedPrice DOUBLE,
+          comment TEXT,
           clientId INTEGER,
           FOREIGN KEY(clientId) REFERENCES clients(id)
           ON Delete restrict

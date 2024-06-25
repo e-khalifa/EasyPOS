@@ -7,48 +7,62 @@ class MyTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
+  bool showHint;
+  TextAlign textAlign;
 
-  const MyTextField(
+  MyTextField(
       {required this.label,
       required this.controller,
       this.validator,
       this.keyboardType,
       this.inputFormatters,
-      super.key});
+      this.textAlign = TextAlign.start,
+      this.showHint = false});
 
   @override
   Widget build(BuildContext context) {
+    final commonDecoration = InputDecoration(
+      hintStyle: TextStyle(color: Colors.grey.shade600),
+      labelStyle: TextStyle(color: Colors.grey.shade600),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 17),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(
+          width: 2,
+          color: Theme.of(context).primaryColor,
+        ),
+      ),
+      focusedErrorBorder: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(
+          width: 2,
+          color: Colors.red,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: Colors.grey.shade300),
+      ),
+      errorBorder: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(
+          width: 2,
+          color: Colors.red,
+        ),
+      ),
+      errorStyle: const TextStyle(color: Colors.red),
+    );
+
     return TextFormField(
+      textAlign: textAlign,
       controller: controller,
       inputFormatters: inputFormatters,
       keyboardType: keyboardType,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validator,
-      decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 15, vertical: 22),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 2,
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
-        focusedErrorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 2,
-            color: Colors.red,
-          ),
-        ),
-        enabledBorder: const OutlineInputBorder(),
-        errorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 2,
-            color: Colors.red,
-          ),
-        ),
-        labelText: label,
-        errorStyle: const TextStyle(color: Colors.red),
-      ),
+      decoration: showHint
+          ? commonDecoration.copyWith(hintText: label)
+          : commonDecoration.copyWith(labelText: label),
     );
   }
 }

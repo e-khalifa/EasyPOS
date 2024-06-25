@@ -7,6 +7,7 @@ import '../helpers/sql_helper.dart';
 import '../models/client.dart';
 import '../pages/clients/clients_ops.dart';
 
+//Used in SalesOpsPage (New Sale screen)
 class ClientsDropDown extends StatefulWidget {
   final int? selectedValue;
   TextEditingController clientSearchController = TextEditingController();
@@ -51,110 +52,99 @@ class _ClientsDropDownState extends State<ClientsDropDown> {
   @override
   Widget build(BuildContext context) {
     try {
-      return clients.isEmpty
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('No Clients Found, '),
-                InkWell(
-                  //updating the clients right away
-                  onTap: () async {
-                    var updated = await pushWidgetAwait(
-                        newPage: const ClientsOpsPage(), context: context);
-                    if (updated == true) {
-                      getClients();
-                    }
-                  },
-                  child: Text(
-                    'Add A New One',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor),
-                  ),
-                )
-              ],
-            )
-          : DropdownButtonFormField2<int>(
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(right: 12, top: 25, bottom: 20),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Colors.grey.shade300),
+      return DropdownButtonFormField2<int>(
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Theme.of(context).secondaryHeaderColor,
+            contentPadding:
+                EdgeInsets.only(right: 10, top: 20, bottom: 15, left: 0),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: Colors.grey.shade300),
+            ),
+          ),
+          value: widget.selectedValue,
+          onChanged: widget.onChanged,
+          hint: Text(clients.isNotEmpty ? 'Select Client' : 'No Clients Found'),
+          items: clients.map((client) {
+            return DropdownMenuItem<int>(
+              value: client.id,
+              child: Text(
+                client.name ?? 'No Name',
+                style: TextStyle(
+                  fontWeight: widget.selectedValue == client.id
+                      ? FontWeight.w600
+                      : FontWeight.normal,
                 ),
               ),
-              value: widget.selectedValue,
-              isExpanded: true,
-              hint: const Text('Select Client'),
-              items: clients.map((client) {
-                return DropdownMenuItem<int>(
-                  value: client.id,
-                  child: Text(
-                    client.name ?? 'No Name',
-                    style: TextStyle(
-                      fontWeight: widget.selectedValue == client.id
-                          ? FontWeight.w600 // Bold for selected item
-                          : FontWeight.normal,
-                    ),
-                  ),
-                );
-              }).toList(),
-              onChanged: widget.onChanged,
-              dropdownSearchData: DropdownSearchData(
-                searchController: widget.clientSearchController,
-                searchInnerWidgetHeight: 60,
-                searchInnerWidget: Container(
-                  height: 60,
-                  padding: const EdgeInsets.only(
-                    top: 10,
-                    bottom: 5,
-                    right: 10,
-                    left: 10,
-                  ),
-                  child: TextFormField(
-                    expands: true,
-                    maxLines: null,
-                    controller: widget.clientSearchController,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 15,
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey.shade50,
-                      hintText: 'Search',
-                      hintStyle: const TextStyle(fontSize: 12),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.grey.shade300)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                              width: 2, color: Theme.of(context).primaryColor)),
-                    ),
-                  ),
-                ),
-                searchMatchFn: (item, searchValue) {
-                  //find the first client that has the samd id as the itemvalue for this menu
-                  var client =
-                      clients.firstWhere((client) => client.id == item.value);
+            );
+          }).toList(),
 
-                  //compare this client's name with the searchvalue
-                  return client.name!
-                      .toLowerCase()
-                      .contains(searchValue.toLowerCase());
-                },
+          //Drop down Menu Style
+          dropdownStyleData: DropdownStyleData(
+            maxHeight: 200,
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          //Search subclass
+          dropdownSearchData: DropdownSearchData(
+            searchController: widget.clientSearchController,
+            searchInnerWidgetHeight: 60,
+            searchInnerWidget: Container(
+              height: 60,
+              padding: const EdgeInsets.only(
+                top: 10,
+                bottom: 5,
+                right: 10,
+                left: 10,
               ),
+              child: TextFormField(
+                expands: true,
+                maxLines: null,
+                controller: widget.clientSearchController,
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 15,
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey.shade50,
+                  hintText: 'Search',
+                  hintStyle: const TextStyle(fontSize: 12),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey.shade300)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                          width: 2, color: Theme.of(context).primaryColor)),
+                ),
+              ),
+            ),
+            searchMatchFn: (item, searchValue) {
+              //find the first client that has the samd id as the itemvalue for this menu
+              var client =
+                  clients.firstWhere((client) => client.id == item.value);
 
-              //to clear the search value after closing the menu
-              onMenuStateChange: (isOpen) {
-                if (!isOpen) {
-                  widget.clientSearchController.clear();
-                }
-              });
+              //compare this client's name with the searchvalue
+              return client.name!
+                  .toLowerCase()
+                  .contains(searchValue.toLowerCase());
+            },
+          ),
+
+          //to clear the search value after closing the menu
+          onMenuStateChange: (isOpen) {
+            if (!isOpen) {
+              widget.clientSearchController.clear();
+            }
+          });
     } catch (e) {
       print('Error building ClientsDropDown: $e');
       return const SizedBox.shrink(); // Return an empty box if there's an error

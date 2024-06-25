@@ -92,7 +92,7 @@ class _SelectingOrderItemsPageState extends State<SelectingOrderItemsPage> {
       appBar: AppBar(
           title: Text(order == null ? 'New Sale' : 'Edit Sale'),
 
-          //Searchbar
+          //Search bar
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(90),
             child: Container(
@@ -104,7 +104,7 @@ class _SelectingOrderItemsPageState extends State<SelectingOrderItemsPage> {
                   prefixIcon: const Icon(Icons.search),
                   hintText: 'Search For any Product',
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: Theme.of(context).secondaryHeaderColor,
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade300),
                     borderRadius: BorderRadius.circular(10),

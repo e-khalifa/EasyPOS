@@ -1,8 +1,10 @@
 class Order {
   int? id;
   String? label;
-  double? totalPrice;
+  double? orginalPrice;
   double? discount;
+  double? discountedPrice;
+  String? comment;
   int? clientId;
   String? clientName;
 
@@ -11,8 +13,10 @@ class Order {
   Order.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     label = json['label'];
-    totalPrice = json['totalPrice'];
+    orginalPrice = json['orginalPrice'];
     discount = json['discount'];
+    discountedPrice = json['discountedPrice'];
+    comment = json['comment'];
     clientId = json['clientId'];
     clientName = json['clientName'];
   }
@@ -21,8 +25,10 @@ class Order {
     return {
       'id': id,
       'label': label,
-      'totalPrice': totalPrice,
+      'orginalPrice': orginalPrice,
       'discount': discount,
+      'discountedPrice': discountedPrice,
+      'comment': comment,
       'clientId': clientId,
       'clientName': clientName,
     };

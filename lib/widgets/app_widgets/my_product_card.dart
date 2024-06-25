@@ -49,7 +49,7 @@ class MyProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: const Color.fromARGB(255, 250, 250, 250),
+      color: Theme.of(context).secondaryHeaderColor,
       surfaceTintColor: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -72,7 +72,7 @@ class MyProductCard extends StatelessWidget {
                     //Error placeholder
                     errorWidget: (context, url, error) => Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: const Icon(
@@ -134,8 +134,8 @@ class MyProductCard extends StatelessWidget {
                       style: const TextStyle(fontSize: 12),
                     )
                   : SizedBox(),
-              const Divider(
-                color: Colors.grey,
+              Divider(
+                color: Colors.grey.shade300,
               ),
               Text('In Stock: $stock', style: const TextStyle(fontSize: 13)),
               const SizedBox(height: 10),

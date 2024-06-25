@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
           //gridview container
           Expanded(
               child: Container(
-            color: const Color.fromARGB(255, 250, 250, 250),
+            color: Theme.of(context).secondaryHeaderColor,
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: GridView.count(

@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
       title: 'Easy POS',
       theme: ThemeData(
         primaryColor: const Color.fromARGB(255, 0, 87, 218),
+        secondaryHeaderColor: const Color.fromARGB(255, 250, 250, 250),
         appBarTheme: const AppBarTheme(
             backgroundColor: Color.fromARGB(255, 0, 87, 218),
             foregroundColor: Colors.white),

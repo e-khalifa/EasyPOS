@@ -99,7 +99,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                           prefixIcon: const Icon(Icons.search),
                           hintText: searchLabel,
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Theme.of(context).secondaryHeaderColor,
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey.shade300),
                             borderRadius: BorderRadius.circular(10),
