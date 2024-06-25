@@ -1,3 +1,6 @@
+# Easy POS
+EasyPos is a mobile Point of Sale (POS) application, it's suitable for general stores, restaurants, beauty salons, and more. It can be used offline and automatically backs up data.
+
 ## 📚 Dependencies
 
 | Name                                                                                  | Version       | Description                                                                                                                                                              |
