@@ -1,12 +1,12 @@
-import 'package:easy_pos_project/widgets/app_widgets/my_app_bar.dart';
+import 'package:easy_pos_project/widgets/app_bar/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:route_transitions/route_transitions.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/product.dart';
-import '../../widgets/app_widgets/my_item_deleted_dialog.dart';
-import '../../widgets/app_widgets/my_product_card.dart';
+import '../../widgets/dialog/my_item_deleted_dialog.dart';
+import '../../widgets/cards/my_product_card.dart';
 import 'products_ops.dart';
 
 /*
@@ -41,10 +41,10 @@ class _ProductsListPageState extends State<ProductsListPage>
   var sortingChoices = [
     'Modification time',
     'Name',
-    'Price ⬆',
-    'Price ⬇',
-    'Stock ⬆',
-    'Stock ⬇',
+    '⬆ Price',
+    '⬇ Price',
+    '⬆ Stock',
+    '⬇ Stock',
   ];
 
   @override
@@ -129,16 +129,16 @@ class _ProductsListPageState extends State<ProductsListPage>
       case 'Name':
         products.sort((a, b) => a.name!.compareTo(b.name!));
         break;
-      case 'Price ⬆':
+      case '⬆ Price':
         products.sort((a, b) => a.price!.compareTo(b.price!));
         break;
-      case 'Price ⬇':
+      case '⬇ Price':
         products.sort((a, b) => b.price!.compareTo(a.price!));
         break;
-      case 'Stock ⬆':
+      case '⬆ Stock':
         products.sort((a, b) => a.stock!.compareTo(b.stock!));
         break;
-      case 'Stock ⬇':
+      case '⬇ Stock':
         products.sort((a, b) => b.stock!.compareTo(a.stock!));
         break;
     }

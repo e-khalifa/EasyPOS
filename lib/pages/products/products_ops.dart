@@ -5,10 +5,10 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/product.dart';
-import '../../widgets/app_widgets/my_elevated_button.dart';
-import '../../widgets/app_widgets/my_text_field.dart';
-import '../../widgets/products_widgets/categories_drop_down.dart';
-import '../../widgets/products_widgets/is_available_switch.dart';
+import '../../widgets/buttons/my_elevated_button.dart';
+import '../../widgets/text_field/my_text_field.dart';
+import '../../widgets/drop_down/categories_drop_down.dart';
+import '../../widgets/switch/is_available_switch.dart';
 
 class ProductsOpsPage extends StatefulWidget {
   final Product? product;

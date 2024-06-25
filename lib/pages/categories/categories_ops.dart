@@ -4,8 +4,8 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/category.dart';
-import '../../widgets/app_widgets/my_elevated_button.dart';
-import '../../widgets/app_widgets/my_text_field.dart';
+import '../../widgets/buttons/my_elevated_button.dart';
+import '../../widgets/text_field/my_text_field.dart';
 
 class CategoriesOpsPage extends StatefulWidget {
   final Category? category;

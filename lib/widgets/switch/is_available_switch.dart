@@ -23,7 +23,8 @@ class _IsAvailableSwitchState extends State<IsAvailableSwitch> {
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Text(
           'Is Product Available?',
-          style: TextStyle(color: Colors.grey.shade600),
+          style: TextStyle(
+              color: Colors.grey.shade700, fontWeight: FontWeight.w500),
         ),
         Switch(
           activeColor: Theme.of(context).primaryColor,

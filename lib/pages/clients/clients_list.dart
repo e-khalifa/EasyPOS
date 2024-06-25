@@ -1,13 +1,13 @@
-import 'package:easy_pos_project/widgets/app_widgets/my_app_bar.dart';
-import 'package:easy_pos_project/widgets/clients_info.dart';
+import 'package:easy_pos_project/widgets/app_bar/my_app_bar.dart';
+import 'package:easy_pos_project/widgets/cards/clients_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:route_transitions/route_transitions.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/client.dart';
-import '../../widgets/app_widgets/my_card.dart';
-import '../../widgets/app_widgets/my_item_deleted_dialog.dart';
+import '../../widgets/cards/my_card.dart';
+import '../../widgets/dialog/my_item_deleted_dialog.dart';
 import 'clients_ops.dart';
 
 enum StatusFilter { all, localClients }

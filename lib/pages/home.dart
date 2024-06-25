@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:route_transitions/route_transitions.dart';
 
-import '../widgets/home_widgets/custom_grid_view_item.dart';
-import '../widgets/home_widgets/header_card.dart';
+import '../helpers/sql_helper.dart';
+import '../widgets/cards/custom_grid_view_item.dart';
+import '../widgets/cards/header_card.dart';
 import 'categories/categories_list.dart';
 import 'clients/clients_list.dart';
+import 'exchange_rate.dart';
 import 'products/products_list.dart';
 import 'sales_ops.dart';
 import 'sales_statistics.dart';
@@ -17,6 +20,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var sqlHelper = GetIt.I.get<SqlHelper>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,8 +52,11 @@ class _HomePageState extends State<HomePage> {
                         //Calling headercard #2
                         HeaderCard(
                           label: 'Exchange Rate',
-                          value: '1EUR = 51.5 Egp',
-                          onTap: () {},
+                          value: '1 EUR = 51.88 Egp',
+                          onTap: () async {
+                            slideRightWidget(
+                                newPage: ExchangeRateTable(), context: context);
+                          },
                         ),
 
                         const SizedBox(height: 10),

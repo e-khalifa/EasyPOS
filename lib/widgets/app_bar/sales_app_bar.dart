@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 
 class SalesAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
-  Size get preferredSize => const Size.fromHeight(160);
+  Size get preferredSize => const Size.fromHeight(180);
 
   String title;
   String? orderLabel;
@@ -49,8 +49,7 @@ class SalesAppBar extends StatelessWidget implements PreferredSizeWidget {
                   //Custom Widget
                   Container(
                       color: Colors.white,
-                      padding:
-                          const EdgeInsets.only(top: 20, right: 20, left: 20),
+                      padding: const EdgeInsets.all(20),
                       child: customWidget)
                 ],
               )),

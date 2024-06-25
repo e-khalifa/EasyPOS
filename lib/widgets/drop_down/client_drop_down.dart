@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:route_transitions/route_transitions.dart';
 
-import '../helpers/sql_helper.dart';
-import '../models/client.dart';
-import '../pages/clients/clients_ops.dart';
+import '../../helpers/sql_helper.dart';
+import '../../models/client.dart';
+import '../../pages/clients/clients_ops.dart';
 
 //Used in SalesOpsPage (New Sale screen)
 class ClientsDropDown extends StatefulWidget {

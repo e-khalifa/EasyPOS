@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_pos_project/pages/adding_products.dart';
-import 'package:easy_pos_project/widgets/app_widgets/my_text_field.dart';
-import 'package:easy_pos_project/widgets/sales_app_bar.dart';
+import 'package:easy_pos_project/pages/selecting_order_items.dart';
+import 'package:easy_pos_project/widgets/text_field/my_text_field.dart';
+import 'package:easy_pos_project/widgets/app_bar/sales_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -12,8 +12,8 @@ import '../helpers/sql_helper.dart';
 import '../models/order.dart';
 import '../models/order_item.dart';
 import '../models/product.dart';
-import '../widgets/app_widgets/my_elevated_button.dart';
-import '../widgets/client_drop_down.dart';
+import '../widgets/buttons/my_elevated_button.dart';
+import '../widgets/drop_down/client_drop_down.dart';
 
 //layout issues
 class SalesOpsPage extends StatefulWidget {
@@ -62,8 +62,9 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
   }
 
   void initPage() {
+    final DateTime now = DateTime.now();
     orderLabel = widget.order == null
-        ? '#OR${DateTime.now().millisecondsSinceEpoch}'
+        ? '#OR${now.year}${now.month}${now.day}${now.hour}${now.minute}${now.second}'
         : widget.order?.label;
 
     setState(() {});
@@ -84,7 +85,7 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
             clientSearchController: clientDropdownSearchController),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.only(bottom: 20, right: 20, left: 20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -183,7 +184,8 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
                         ),
                         onPressed: () {
                           slideRightWidget(
-                              newPage: SelectingOrderItemsPage(),
+                              newPage: SelectingOrderItemsPage(
+                                  orderLabel: orderLabel),
                               context: context);
                         },
                       ),
@@ -242,6 +244,7 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
               SizedBox(height: 20),
               MyElevatedButton(
                   label: 'Confirm',
+                  color: Colors.green,
                   onPressed: () async {
                     await onSetOrder();
                   })

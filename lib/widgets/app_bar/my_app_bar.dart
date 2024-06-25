@@ -65,11 +65,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
 
                     //Flitering tabs
                     child: TabBar(
-                        dividerColor: Colors.grey,
+                        dividerColor: Theme.of(context).primaryColor,
                         controller: Controller,
                         unselectedLabelColor: Colors.white,
                         labelColor: Colors.black,
@@ -81,7 +81,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                           color: Colors.white,
                         ),
                         labelStyle: const TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w700,
                           fontSize: 14,
                         ),
                         tabs: tabs),

@@ -38,7 +38,8 @@ class SqlHelper {
                      2- Products
                      3- Clients
                      4- Orders
-                     5- Order Product Items*/
+                     5- Order Product Items
+                     */
 
   Future<bool> createTables() async {
     try {

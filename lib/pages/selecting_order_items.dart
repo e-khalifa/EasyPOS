@@ -1,3 +1,4 @@
+import 'package:easy_pos_project/widgets/app_bar/sales_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:route_transitions/route_transitions.dart';
@@ -6,12 +7,14 @@ import '../helpers/sql_helper.dart';
 import '../models/order.dart';
 import '../models/order_item.dart';
 import '../models/product.dart';
-import '../widgets/app_widgets/my_elevated_button.dart';
-import '../widgets/app_widgets/my_product_card.dart';
+import '../widgets/buttons/my_elevated_button.dart';
+import '../widgets/cards/my_product_card.dart';
 import 'sales_ops.dart';
 
 class SelectingOrderItemsPage extends StatefulWidget {
-  const SelectingOrderItemsPage({super.key});
+  String? orderLabel;
+
+  SelectingOrderItemsPage({required this.orderLabel, super.key});
 
   @override
   State<SelectingOrderItemsPage> createState() =>
@@ -89,62 +92,53 @@ class _SelectingOrderItemsPageState extends State<SelectingOrderItemsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(order == null ? 'New Sale' : 'Edit Sale'),
-
-          //Search bar
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(90),
-            child: Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(20),
-              child: TextField(
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.all(10),
-                  prefixIcon: const Icon(Icons.search),
-                  hintText: 'Search For any Product',
-                  filled: true,
-                  fillColor: Theme.of(context).secondaryHeaderColor,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Theme.of(context).primaryColor),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onChanged: (text) async {
-                  try {
-                    if (text.isEmpty) {
-                      getProducts();
-                      return;
-                    }
-                    final data = await sqlHelper.db!.rawQuery('''
+      appBar: SalesAppBar(
+        title: (order == null ? 'New Sale' : 'Edit Sale'),
+        orderLabel: orderLabel,
+        customWidget: TextField(
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(10),
+            prefixIcon: const Icon(Icons.search),
+            hintText: 'Search For any Product',
+            filled: true,
+            fillColor: Theme.of(context).secondaryHeaderColor,
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).primaryColor),
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          onChanged: (text) async {
+            try {
+              if (text.isEmpty) {
+                getProducts();
+                return;
+              }
+              final data = await sqlHelper.db!.rawQuery('''
                       SELECT P.*, C.name as categoryName FROM products P
                       INNER JOIN categories C ON P.categoryId = C.id
                       WHERE (P.name LIKE '%$text%'
                       OR P.description LIKE '%$text%')
                       AND p.stock > 0
                    ''');
-                    //if anything related found, map it to a list
-                    if (data.isNotEmpty) {
-                      products =
-                          data.map((item) => Product.fromJson(item)).toList();
-                      //nothing found? empty list
-                    } else {
-                      products = [];
-                      notFoundOnSearch = true;
-                    }
-                  } catch (e) {
-                    print('Error in search products: $e');
-                  }
-                  setState(() {});
-                },
-              ),
-            ),
-          )),
+              //if anything related found, map it to a list
+              if (data.isNotEmpty) {
+                products = data.map((item) => Product.fromJson(item)).toList();
+                //nothing found? empty list
+              } else {
+                products = [];
+                notFoundOnSearch = true;
+              }
+            } catch (e) {
+              print('Error in search products: $e');
+            }
+            setState(() {});
+          },
+        ),
+      ),
       body: products.isEmpty
           ? notFoundOnSearch
               ? const SizedBox()
