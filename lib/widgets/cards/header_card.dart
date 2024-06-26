@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/* Used in: 
+           - HomePage
+           */
 class HeaderCard extends StatelessWidget {
   final String label;
   final String value;

@@ -68,7 +68,7 @@ class _CategoriesOpsPageState extends State<CategoriesOpsPage> {
                 const SizedBox(height: 20),
                 DropdownButtonFormField(
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 25, right: 10),
+                    contentPadding: const EdgeInsets.only(left: 25, right: 10),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(
@@ -79,7 +79,7 @@ class _CategoriesOpsPageState extends State<CategoriesOpsPage> {
                       borderSide: BorderSide(color: Colors.grey.shade300),
                     ),
                   ),
-                  hint: Text('Choose Category Status'),
+                  hint: const Text('Choose Category Status'),
                   isExpanded: true,
                   items: ['New Arrivals', 'Special Offers'].map((String value) {
                     return DropdownMenuItem<String>(

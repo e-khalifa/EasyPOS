@@ -1,16 +1,18 @@
+import 'package:easy_pos_project/widgets/app_bar/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:route_transitions/route_transitions.dart';
 
 import '../helpers/sql_helper.dart';
+import '../models/order.dart';
 import '../widgets/cards/custom_grid_view_item.dart';
 import '../widgets/cards/header_card.dart';
 import 'categories/categories_list.dart';
 import 'clients/clients_list.dart';
 import 'exchange_rate.dart';
 import 'products/products_list.dart';
-import 'sales_ops.dart';
-import 'sales_statistics.dart';
+import 'sales/sales_ops.dart';
+import 'sales/all_sales.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,11 +23,36 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var sqlHelper = GetIt.I.get<SqlHelper>();
+  List<Order> orders = [];
+  var sales = 0.0;
+
+  @override
+  void initState() {
+    getOrders();
+    super.initState();
+  }
+
+  Future<void> getOrders() async {
+    try {
+      var data = await sqlHelper.db!.rawQuery("""
+       SELECT * FROM orders
+    """);
+      if (data.isNotEmpty) {
+        orders = data.map((item) => Order.fromJson(item)).toList();
+      } else {
+        orders = [];
+      }
+      // Print the retrieved orders for debugging
+    } catch (e) {
+      print('Error in getting orders: $e');
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Container(),
+      drawer: MyDrawer(),
       appBar: AppBar(),
       body: Column(
         children: [
@@ -55,7 +82,8 @@ class _HomePageState extends State<HomePage> {
                           value: '1 EUR = 51.88 Egp',
                           onTap: () async {
                             slideRightWidget(
-                                newPage: ExchangeRateTable(), context: context);
+                                newPage: const ExchangeRateTable(),
+                                context: context);
                           },
                         ),
 
@@ -63,10 +91,10 @@ class _HomePageState extends State<HomePage> {
 
                         HeaderCard(
                             label: 'Today\'s Sales',
-                            value: '9000 Egp',
+                            value: '$calculateSales Egp',
                             onTap: () {
                               slideRightWidget(
-                                  newPage: const SalesStatisticsPage(),
+                                  newPage: const AllSalesPage(),
                                   context: context);
                             }),
                       ]))),
@@ -88,8 +116,7 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.orange,
                     onTap: () {
                       slideRightWidget(
-                          newPage: const SalesStatisticsPage(),
-                          context: context);
+                          newPage: const AllSalesPage(), context: context);
                     },
                   ),
                   CustomGridViewItem(
@@ -98,8 +125,7 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.pink,
                     onTap: () {
                       slideRightWidget(
-                          newPage: ProductsListPage(selectedTabIndex: 0),
-                          context: context);
+                          newPage: const ProductsListPage(), context: context);
                     },
                   ),
                   CustomGridViewItem(
@@ -132,16 +158,6 @@ class _HomePageState extends State<HomePage> {
                           context: context);
                     },
                   ),
-                  CustomGridViewItem(
-                    label: 'Iventory',
-                    icon: Icons.inventory,
-                    color: Colors.purple,
-                    onTap: () {
-                      slideRightWidget(
-                          newPage: ProductsListPage(selectedTabIndex: 1),
-                          context: context);
-                    },
-                  ),
                 ],
               ),
             ),
@@ -149,5 +165,13 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  // Calculate Sales
+  double? get calculateSales {
+    for (var order in orders) {
+      sales = sales + (order.orginalPrice ?? 0);
+    }
+    return sales;
   }
 }

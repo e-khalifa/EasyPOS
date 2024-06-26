@@ -1,13 +1,13 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
-import 'package:route_transitions/route_transitions.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/category.dart';
-import '../../pages/categories/categories_ops.dart';
 
+/*Used in : 
+          - ProductOpsPage
+*/
 class CategoriesDropDown extends StatefulWidget {
   final int? selectedValue;
   final String? Function(int?)? validator;
@@ -56,8 +56,8 @@ class _CategoriesDropDownState extends State<CategoriesDropDown> {
     try {
       return DropdownButtonFormField2<int>(
           decoration: InputDecoration(
-              contentPadding:
-                  EdgeInsets.only(right: 10, top: 20, bottom: 15, left: 0),
+              contentPadding: const EdgeInsets.only(
+                  right: 10, top: 20, bottom: 15, left: 0),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(width: 2, color: Colors.grey.shade300),
@@ -92,7 +92,7 @@ class _CategoriesDropDownState extends State<CategoriesDropDown> {
           //Drop down Menu Style
           dropdownStyleData: DropdownStyleData(
             maxHeight: 200,
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
             ),

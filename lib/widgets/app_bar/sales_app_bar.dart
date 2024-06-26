@@ -30,7 +30,7 @@ class SalesAppBar extends StatelessWidget implements PreferredSizeWidget {
       body: SafeArea(
         child: AppBar(
           //Title
-          title: Text('$title'),
+          title: Text(title),
           bottom: PreferredSize(
               preferredSize: const Size.fromHeight(kToolbarHeight),
               child: Column(
@@ -39,11 +39,11 @@ class SalesAppBar extends StatelessWidget implements PreferredSizeWidget {
                   Container(
                       width: double.infinity,
                       height: 35,
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       alignment: Alignment.centerLeft,
-                      color: Color.fromARGB(255, 255, 244, 210),
+                      color: const Color.fromARGB(255, 255, 244, 210),
                       child: Text(
-                        '${orderLabel}',
+                        '$orderLabel',
                       )),
 
                   //Custom Widget

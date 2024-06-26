@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Used in : - ProductsOpsPage
 class IsAvailableSwitch extends StatefulWidget {
   bool value;
   final void Function(bool?)? onChanged;

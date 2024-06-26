@@ -5,7 +5,7 @@ import 'package:route_transitions/route_transitions.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/category.dart';
-import '../../widgets/cards/my_card.dart';
+import '../../widgets/cards/c_card.dart';
 import '../../widgets/dialog/my_item_deleted_dialog.dart';
 import 'categories_ops.dart';
 
@@ -96,6 +96,7 @@ class _CategoriesListPageState extends State<CategoriesListPage>
     setState(() {});
   }
 
+  //Sorting
   void applySorting(String sort) {
     switch (sort) {
       case 'Name':
@@ -148,7 +149,7 @@ class _CategoriesListPageState extends State<CategoriesListPage>
               });
 
               // Introduce a delay before calling the function
-              await Future.delayed(Duration(milliseconds: 600));
+              await Future.delayed(const Duration(milliseconds: 600));
               await getCategories(filter: currentFilter, sort: selectedSorting);
 
               // Hide the loading indicator
@@ -202,7 +203,7 @@ class _CategoriesListPageState extends State<CategoriesListPage>
                             color: Theme.of(context).primaryColor,
                             strokeWidth: 3,
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                     Expanded(
                       child: ListView.builder(
                           itemCount: categories.length,
@@ -211,7 +212,7 @@ class _CategoriesListPageState extends State<CategoriesListPage>
                             print('Category: ${category.name}');
 
                             //caling listcard
-                            return MyCard(
+                            return CCard(
                               onDeleted: () => onDeleteCategory(category),
                               onEdit: () {
                                 slideRightWidget(
@@ -229,7 +230,7 @@ class _CategoriesListPageState extends State<CategoriesListPage>
                                           ? Colors.green
                                           : category.selectedStatus ==
                                                   'Special Offers'
-                                              ? Colors.green
+                                              ? Colors.yellow
                                               : Colors.transparent),
                                   Text(
                                     category.description!,

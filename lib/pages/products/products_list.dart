@@ -21,8 +21,7 @@ Products:
 enum StockFilter { all, inventory, outOfStock }
 
 class ProductsListPage extends StatefulWidget {
-  int selectedTabIndex;
-  ProductsListPage({required this.selectedTabIndex, super.key});
+  const ProductsListPage({super.key});
 
   @override
   _ProductsListPageState createState() => _ProductsListPageState();
@@ -50,8 +49,7 @@ class _ProductsListPageState extends State<ProductsListPage>
   @override
   void initState() {
     getProducts(); // Fetch Products when the widget initializes
-    _tabController = TabController(
-        length: 3, vsync: this, initialIndex: widget.selectedTabIndex);
+    _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabSelection);
     super.initState();
   }
@@ -188,7 +186,7 @@ class _ProductsListPageState extends State<ProductsListPage>
               });
 
               // Introduce a delay before calling the function
-              await Future.delayed(Duration(milliseconds: 600));
+              await Future.delayed(const Duration(milliseconds: 600));
               await getProducts(filter: currentFilter, sort: selectedSorting);
 
               // Hide the loading indicator
@@ -251,7 +249,7 @@ class _ProductsListPageState extends State<ProductsListPage>
                           color: Theme.of(context).primaryColor,
                           strokeWidth: 3,
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                   Expanded(
                     child: GridView.builder(
                         gridDelegate:
@@ -259,7 +257,7 @@ class _ProductsListPageState extends State<ProductsListPage>
                           crossAxisCount: 2,
                           crossAxisSpacing: 5,
                           mainAxisSpacing: 5,
-                          childAspectRatio: 0.76,
+                          childAspectRatio: 0.77,
                         ),
                         itemCount: products.length,
                         itemBuilder: (context, index) {

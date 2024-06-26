@@ -1,6 +1,9 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
+/* Used in : 
+           -ClientsListPage 
+           */
 class ClientsInfo extends StatelessWidget {
   IconData icon;
   String? label;
@@ -14,24 +17,22 @@ class ClientsInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return label != ''
-        ? Container(
-            child: Row(
-              children: [
-                Icon(icon, size: 25, color: Colors.grey),
-                SizedBox(width: 10),
-                Container(
-                    width: width,
-                    child: DottedBorder(
-                        padding: EdgeInsets.all(5),
-                        borderType: BorderType.RRect,
-                        radius: Radius.circular(5),
-                        strokeWidth: .5,
-                        child: Text(
-                          '$label',
-                          style: TextStyle(fontSize: 14),
-                        )))
-              ],
-            ),
+        ? Row(
+            children: [
+              Icon(icon, size: 25, color: Colors.grey),
+              const SizedBox(width: 10),
+              SizedBox(
+                  width: width,
+                  child: DottedBorder(
+                      padding: const EdgeInsets.all(5),
+                      borderType: BorderType.RRect,
+                      radius: const Radius.circular(5),
+                      strokeWidth: .5,
+                      child: Text(
+                        '$label',
+                        style: const TextStyle(fontSize: 14),
+                      )))
+            ],
           )
         : SizedBox();
   }

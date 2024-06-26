@@ -8,6 +8,7 @@ class SqlHelper {
   Future<void> registerForeignKeys() async {
     await db!.rawQuery('PRAGMA foreign_keys = on');
     var result = await db!.rawQuery('PRAGMA foreign_keys');
+    print('foreign keys result : $result');
   }
 
   // Creating database
@@ -104,11 +105,12 @@ class SqlHelper {
 
       // OrderProductItems table
       batch.execute('''
-        CREATE TABLE IF NOT EXISTS orderProductItems (
-          orderId INTEGER,
+        CREATE TABLE IF NOT EXISTS orderItems (
+          id INTEGER PRIMARY KEY,
           productCount INTEGER,
           productId INTEGER,
-          FOREIGN KEY(productId) REFERENCES products(id)
+          orderId INTEGER,
+          FOREIGN KEY(orderId) REFERENCES orders(id)
           ON Delete restrict
         )
       ''');

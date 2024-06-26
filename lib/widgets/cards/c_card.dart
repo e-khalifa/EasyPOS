@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-class MyCard extends StatelessWidget {
+/* USED in: 
+          - CategoriesListPage
+          - ClientsListPage
+*/
+class CCard extends StatelessWidget {
   final Future<void> Function() onDeleted;
   final void Function()? onEdit;
   final Widget? customWidget;
@@ -10,7 +14,8 @@ class MyCard extends StatelessWidget {
   final String? address;
   final String? email;
 
-  MyCard({
+  const CCard({
+    super.key,
     required this.onDeleted,
     required this.onEdit,
     required this.customWidget,
@@ -34,7 +39,7 @@ class MyCard extends StatelessWidget {
           Column(
             children: [
               ListTile(
-                contentPadding: EdgeInsets.all(15),
+                contentPadding: const EdgeInsets.all(15),
                 title: Text(
                   name!,
                   style: const TextStyle(

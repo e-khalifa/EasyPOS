@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-/*MyAppBar (
+/*Used in: 
+           - CategoriesListPage
+           - ClientsListPage
+           - ProductsListPage
+
+MyAppBar (
             - title
             - Sorting options
             - refresh option
@@ -82,7 +87,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                         ),
                         labelStyle: const TextStyle(
                           fontWeight: FontWeight.w700,
-                          fontSize: 14,
+                          fontSize: 16,
                         ),
                         tabs: tabs),
                   ),

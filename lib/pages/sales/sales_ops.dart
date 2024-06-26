@@ -1,26 +1,34 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_pos_project/pages/selecting_order_items.dart';
+import 'package:easy_pos_project/pages/home.dart';
+import 'package:easy_pos_project/pages/sales/selecting_order_items.dart';
 import 'package:easy_pos_project/widgets/text_field/my_text_field.dart';
 import 'package:easy_pos_project/widgets/app_bar/sales_app_bar.dart';
+import 'package:easy_pos_project/widgets/tiles/order_items_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:route_transitions/route_transitions.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../helpers/sql_helper.dart';
-import '../models/order.dart';
-import '../models/order_item.dart';
-import '../models/product.dart';
-import '../widgets/buttons/my_elevated_button.dart';
-import '../widgets/drop_down/client_drop_down.dart';
+import '../../helpers/sql_helper.dart';
+import '../../models/order.dart';
+import '../../models/order_item.dart';
+import '../../models/product.dart';
+import '../../widgets/buttons/my_elevated_button.dart';
+import '../../widgets/drop_down/client_drop_down.dart';
 
-//layout issues
+//NEED TO- Disply discount and price after
+
 class SalesOpsPage extends StatefulWidget {
   List<OrderItem> selectedOrderItems;
+  String? orderLabel;
+
   final Order? order;
 
-  SalesOpsPage({required this.selectedOrderItems, this.order, super.key});
+  SalesOpsPage(
+      {required this.selectedOrderItems,
+      this.order,
+      this.orderLabel,
+      super.key});
 
   @override
   State<SalesOpsPage> createState() => _SalesOpsPageState();
@@ -39,14 +47,13 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
   int? selectedClientId;
 
   List<Product>? products;
-  String? orderLabel;
 
   @override
   void initState() {
     try {
       if (widget.order != null) {
         // Setting initial values for editing an existing order
-        orderLabel = widget.order!.label!;
+        widget.orderLabel = widget.order!.label!;
         commentController.text = widget.order!.comment!;
         discountController.text = '${widget.order?.discount ?? ''}';
         orginalPrice = widget.order!.orginalPrice!;
@@ -63,7 +70,7 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
 
   void initPage() {
     final DateTime now = DateTime.now();
-    orderLabel = widget.order == null
+    widget.orderLabel = widget.order == null
         ? '#OR${now.year}${now.month}${now.day}${now.hour}${now.minute}${now.second}'
         : widget.order?.label;
 
@@ -75,7 +82,7 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
     return Scaffold(
       appBar: SalesAppBar(
         title: (widget.order == null ? 'New Sale' : 'Edit Sale'),
-        orderLabel: orderLabel,
+        orderLabel: widget.orderLabel,
         customWidget: ClientsDropDown(
             selectedValue: selectedClientId,
             onChanged: (value) {
@@ -110,117 +117,58 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
                             final orderItem = widget.selectedOrderItems[index];
                             print('orderItem: ${orderItem.product!.name}');
 
-                            return ListTile(
-                              contentPadding: EdgeInsets.all(0),
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: CachedNetworkImage(
-                                  height: 70,
-                                  width: 50,
-                                  fit: BoxFit.cover,
-                                  imageUrl: orderItem.product!.image ?? '',
-                                  //Error placeholder
-                                  errorWidget: (context, url, error) =>
-                                      Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: const Icon(
-                                      Icons.error,
-                                      size: 20,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              title: Text(
-                                '${orderItem.product!.name}',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(
-                                '${orderItem.product!.price} EGP',
-                                style: TextStyle(color: Colors.grey.shade700),
-                              ),
-                              trailing: Container(
-                                height: 30,
-                                width: 30,
-                                padding: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.grey.shade300, width: 1),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Text(
-                                  '${orderItem.productCount}x',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                            return OrderItemsTile(
+                              name: '${orderItem.product!.name}',
+                              count: orderItem.productCount,
+                              price: orderItem.product!.price,
+                              imageUrl: orderItem.product!.image,
                             );
                           }),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            padding: EdgeInsets.all(20),
+                            fixedSize: const Size(double.maxFinite, 50),
+                            padding: const EdgeInsets.all(20),
                             side: BorderSide(color: Colors.grey.shade300),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             foregroundColor: Colors.grey.shade700),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.add,
-                            ),
-                            Text(
-                              'Add Product',
-                            )
-                          ],
+                        child: Text(
+                          'Add Product',
+                          style: TextStyle(
+                              fontSize: 17, color: Colors.grey.shade600),
                         ),
                         onPressed: () {
                           slideRightWidget(
                               newPage: SelectingOrderItemsPage(
-                                  orderLabel: orderLabel),
+                                  orderLabel: widget.orderLabel),
                               context: context);
                         },
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Divider(color: Colors.grey.shade300),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Total:',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
-                          Column(
-                            children: [
-                              Text(
-                                '${calculateOrginalPrice} EGP',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              /*  if (discountController != null)
-                                Text('- ${discountController.text}'),
-                              Text(
-                                  '${calculateTotalPrice! - double.parse(discountController.text)} EGP')*/
-                            ],
+                          Text(
+                            '$calculateOrginalPrice EGP',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                            ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Divider(color: Colors.grey.shade300),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       MyTextField(
                         showHint: true,
                         label: 'Add Discount',
@@ -235,13 +183,13 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               MyTextField(
                 showHint: true,
                 label: 'Add Comment',
                 controller: commentController,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               MyElevatedButton(
                   label: 'Confirm',
                   color: Colors.green,
@@ -259,7 +207,7 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
     try {
       if ((widget.selectedOrderItems.isEmpty)) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             backgroundColor: Colors.red,
             content: Text(
               'You Must Add Order Items First',
@@ -274,9 +222,10 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
         // Add a new order
         var orderId = await sqlHelper.db!
             .insert('orders', conflictAlgorithm: ConflictAlgorithm.replace, {
-          'label': orderLabel,
+          'label': widget.orderLabel,
           'orginalPrice': orginalPrice,
-          'discount': double.parse(discountController.text),
+          'discount': double.tryParse(discountController.text) ??
+              0, // Handle empty field
           'discountedPrice': discountedPrice,
           'comment': commentController.text,
           'clientId': selectedClientId
@@ -284,7 +233,7 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
 
         var batch = sqlHelper.db!.batch();
         for (var orderItem in widget.selectedOrderItems) {
-          batch.insert('orderProductItems', {
+          batch.insert('orderItems', {
             'orderId': orderId,
             'productId': orderItem.productId,
             'productCount': orderItem.productCount,
@@ -292,29 +241,66 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
         }
         var result = await batch.commit();
 
-        print('>>>>>>>> orderProductItems${result}');
+        // Print the order table
+        var orderTable = await sqlHelper.db!.query('orders');
+        print('Order Table:');
+        for (var row in orderTable) {
+          print(
+              'Order ID: ${row['id']}, Label: ${row['label']}, Original Price: ${row['orginalPrice']}');
+        }
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             backgroundColor: Colors.green,
             content: Text(
               'Order Created Successfully',
               style: TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
             ),
           ),
         );
-        Navigator.pop(context, true);
+        slideRightWidget(newPage: const HomePage(), context: context);
+      } else {
+        // Update an existing order
+        await sqlHelper.db!.update(
+          'orders',
+          {
+            'label': widget.orderLabel,
+            'orginalPrice': orginalPrice,
+            'discount': double.tryParse(discountController.text) ??
+                0, // Handle empty field
+            'discountedPrice': discountedPrice,
+            'comment': commentController.text,
+            'clientId': selectedClientId
+          },
+          where: 'id =?',
+          whereArgs: [widget.order?.id],
+        );
+        var batch = sqlHelper.db!.batch();
+        for (var orderItem in widget.selectedOrderItems) {
+          batch.update('orderItems', {
+            'orderId': orderItem.orderId,
+            'productId': orderItem.productId,
+            'productCount': orderItem.productCount,
+          });
+        }
+        var result = await batch.commit();
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.green,
+            content: Text(
+              'Changes saved!',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+
+        slideRightWidget(newPage: const HomePage(), context: context);
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.red,
-          content: Text(
-            'Error : $e',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      );
+      print('Error in adding order : $e');
     }
   }
 
@@ -324,15 +310,5 @@ class _SalesOpsPageState extends State<SalesOpsPage> {
           (orderItem.productCount ?? 0) * (orderItem.product?.price ?? 0);
     }
     return orginalPrice;
-  }
-
-  double? get calculateDiscountedPrice {
-    for (var orderItem in widget.selectedOrderItems) {
-      if (discountController.text != null) {
-        discountedPrice =
-            orginalPrice - (double.parse(discountController.text) ?? 0);
-      }
-    }
-    return discountedPrice;
   }
 }

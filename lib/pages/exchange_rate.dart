@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sqflite/sqflite.dart';
 
 import '../helpers/sql_helper.dart';
 
@@ -28,10 +27,10 @@ class _ExchangeRateTableState extends State<ExchangeRateTable> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Currency Exchange Rates')),
+      appBar: AppBar(title: const Text('Currency Exchange Rates')),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           child: DataTable(
             sortColumnIndex: _currentSortColumn,
@@ -39,7 +38,7 @@ class _ExchangeRateTableState extends State<ExchangeRateTable> {
             decoration: BoxDecoration(
                 color: Theme.of(context).secondaryHeaderColor,
                 borderRadius: BorderRadius.circular(10)),
-            headingTextStyle: TextStyle(
+            headingTextStyle: const TextStyle(
                 color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
             border: TableBorder.all(
                 borderRadius: BorderRadius.circular(10),
@@ -47,10 +46,12 @@ class _ExchangeRateTableState extends State<ExchangeRateTable> {
             headingRowColor: MaterialStateColor.resolveWith(
                 (states) => Theme.of(context).primaryColor),
             columns: [
-              DataColumn(label: Text('Currency', textAlign: TextAlign.center)),
-              DataColumn(label: Text('Quantity', textAlign: TextAlign.center)),
+              const DataColumn(
+                  label: Text('Currency', textAlign: TextAlign.center)),
+              const DataColumn(
+                  label: Text('Quantity', textAlign: TextAlign.center)),
               DataColumn(
-                label: Text('EGP', textAlign: TextAlign.center),
+                label: const Text('EGP', textAlign: TextAlign.center),
                 onSort: (columnIndex, _) {
                   setState(() {
                     _currentSortColumn = columnIndex;
@@ -64,7 +65,7 @@ class _ExchangeRateTableState extends State<ExchangeRateTable> {
               return DataRow(cells: [
                 DataCell(
                     Text(currency['currency'], textAlign: TextAlign.center)),
-                DataCell(Text('1',
+                const DataCell(Text('1',
                     textAlign: TextAlign.center)), // Quantity is always 1
                 DataCell(Text('${currency['exchangeRate']}',
                     textAlign: TextAlign.center)),

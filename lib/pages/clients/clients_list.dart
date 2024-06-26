@@ -6,7 +6,7 @@ import 'package:route_transitions/route_transitions.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/client.dart';
-import '../../widgets/cards/my_card.dart';
+import '../../widgets/cards/c_card.dart';
 import '../../widgets/dialog/my_item_deleted_dialog.dart';
 import 'clients_ops.dart';
 
@@ -143,7 +143,7 @@ WHERE COALESCE(address, '') <> ''
               });
 
               // Introduce a delay before calling the function
-              await Future.delayed(Duration(milliseconds: 600));
+              await Future.delayed(const Duration(milliseconds: 600));
               await getClients(filter: currentFilter, sort: selectedSorting);
 
               // Hide the loading indicator
@@ -153,7 +153,7 @@ WHERE COALESCE(address, '') <> ''
             }
           },
           Controller: _tabController,
-          tabs: [Tab(text: 'All'), Tab(text: 'Local Clients')],
+          tabs: const [Tab(text: 'All'), Tab(text: 'Local Clients')],
           searchLabel: 'Search For any Client',
           onSearchTextChanged: (text) async {
             if (text.isEmpty) {
@@ -195,7 +195,7 @@ WHERE COALESCE(address, '') <> ''
                             color: Theme.of(context).primaryColor,
                             strokeWidth: 3,
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                     Expanded(
                       child: ListView.builder(
                           itemCount: clients.length,
@@ -204,7 +204,7 @@ WHERE COALESCE(address, '') <> ''
                             print('Client: ${client.name}');
 
                             //caling listcard
-                            return MyCard(
+                            return CCard(
                               onDeleted: () => onDeleteClient(client),
                               onEdit: () {
                                 slideRightWidget(
@@ -218,18 +218,18 @@ WHERE COALESCE(address, '') <> ''
                                       label: client.address!,
                                       icon: Icons.home,
                                       width: 357),
-                                  SizedBox(height: 10),
+                                  const SizedBox(height: 10),
                                   Row(
                                     children: [
                                       ClientsInfo(
                                           label: client.phone!,
                                           icon: Icons.phone,
-                                          width: 156),
-                                      SizedBox(width: 10),
+                                          width: 120),
+                                      const SizedBox(width: 10),
                                       ClientsInfo(
                                           label: client.email!,
                                           icon: Icons.email,
-                                          width: 156),
+                                          width: 192),
                                     ],
                                   )
                                 ],

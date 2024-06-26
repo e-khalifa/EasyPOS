@@ -7,7 +7,7 @@ class OrderItem {
   Product? product;
 
   OrderItem();
-  
+
   OrderItem.fromJson(Map<String, dynamic> json) {
     orderId = json['orderId'];
     productCount = json['productCount'];

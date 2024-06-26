@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/* Used in: 
+           - HomePage
+           */
+
 class CustomGridViewItem extends StatelessWidget {
   final String label;
   final IconData icon;

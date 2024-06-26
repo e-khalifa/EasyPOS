@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:route_transitions/route_transitions.dart';
 
-import '../helpers/sql_helper.dart';
-import '../models/order.dart';
-import '../models/order_item.dart';
-import '../models/product.dart';
-import '../widgets/buttons/my_elevated_button.dart';
-import '../widgets/cards/my_product_card.dart';
+import '../../helpers/sql_helper.dart';
+import '../../models/order.dart';
+import '../../models/order_item.dart';
+import '../../models/product.dart';
+import '../../widgets/buttons/my_elevated_button.dart';
+import '../../widgets/cards/my_product_card.dart';
 import 'sales_ops.dart';
 
 class SelectingOrderItemsPage extends StatefulWidget {
@@ -27,7 +27,6 @@ class _SelectingOrderItemsPageState extends State<SelectingOrderItemsPage> {
   Order? order;
   List<Product> products = [];
   List<OrderItem> selectedOrderItems = [];
-  String? orderLabel;
   bool notFoundOnSearch = false;
 
   @override
@@ -94,7 +93,7 @@ class _SelectingOrderItemsPageState extends State<SelectingOrderItemsPage> {
     return Scaffold(
       appBar: SalesAppBar(
         title: (order == null ? 'New Sale' : 'Edit Sale'),
-        orderLabel: orderLabel,
+        orderLabel: widget.orderLabel,
         customWidget: TextField(
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(10),
@@ -156,7 +155,7 @@ class _SelectingOrderItemsPageState extends State<SelectingOrderItemsPage> {
                           crossAxisCount: 2,
                           crossAxisSpacing: 5,
                           mainAxisSpacing: 5,
-                          childAspectRatio: 0.86,
+                          childAspectRatio: 0.80,
                         ),
                         itemCount: products.length,
                         itemBuilder: (context, index) {
@@ -252,7 +251,8 @@ class _SelectingOrderItemsPageState extends State<SelectingOrderItemsPage> {
                       onPressed: () {
                         slideRightWidget(
                             newPage: SalesOpsPage(
-                                selectedOrderItems: selectedOrderItems),
+                              selectedOrderItems: selectedOrderItems,
+                            ),
                             context: context);
                       })
                 ],

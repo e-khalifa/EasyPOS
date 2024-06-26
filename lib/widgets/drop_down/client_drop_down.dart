@@ -1,11 +1,9 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:route_transitions/route_transitions.dart';
 
 import '../../helpers/sql_helper.dart';
 import '../../models/client.dart';
-import '../../pages/clients/clients_ops.dart';
 
 //Used in SalesOpsPage (New Sale screen)
 class ClientsDropDown extends StatefulWidget {
@@ -57,7 +55,7 @@ class _ClientsDropDownState extends State<ClientsDropDown> {
             filled: true,
             fillColor: Theme.of(context).secondaryHeaderColor,
             contentPadding:
-                EdgeInsets.only(right: 10, top: 20, bottom: 15, left: 0),
+                const EdgeInsets.only(right: 10, top: 20, bottom: 15, left: 0),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -86,7 +84,7 @@ class _ClientsDropDownState extends State<ClientsDropDown> {
           //Drop down Menu Style
           dropdownStyleData: DropdownStyleData(
             maxHeight: 200,
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
             ),
