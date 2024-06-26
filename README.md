@@ -1,6 +1,38 @@
 # Easy POS
 EasyPos is a mobile Point of Sale (POS) application, it's suitable for general stores, restaurants, beauty salons, and more. It can be used offline and automatically backs up data.
 
+
+
+## 📸 Screenshots
+
+<!-- Variables -->
+
+[Home1]: assets/screenshots/Home1.JPG 'Home #1'
+[Home2]: assets/screenshots/Home2.JPG 'Home #2'
+[Drawer]: assets/screenshots/Drawer.JPG 'App Drawer'
+[Categories]: assets/screenshots/Categories.JPG 'Categories #1'
+[Category2]: assets/screenshots/Category2.JPG 'Categories #2'
+[Category3]: assets/screenshots/Category3.JPG 'Categories #3'
+[Add Category]: assets/screenshots/Add Category.JPG 'Add Categories'
+[Clients]: assets/screenshots/Clients.JPG 'Clients Page'
+[Add Client]: assets/screenshots/Add Client.JPG 'Add Clients'
+
+
+<!-- Table -->
+
+|      Home #1       |      Home #2      |      App Drawer      |
+| :---------------: | :-------------: | :---------------: |
+| ![Home #1][Home1] | ![Home #2][Home2] | ![App Drawer][Drawer] |
+
+|        Categories #1        |       Categories #2       |      Categories #3       |
+| :---------------------: | :-----------------: | :---------------: |
+| ![Categories #1][Categories] | ![Categories #2][Category2] | ![Categories #3][Category3] |
+
+|      Add Categories       |      Clients Page       |      Add Clients       |
+| :---------------: | :---------------: | :---------------: |
+| ![Add Categories][Add Category] | ![Clients Page][Clients] | ![Add Clients][Add Client] |
+
+
 ## 📚 Dependencies
 
 | Name                                                                                  | Version       | Description                                                                                                                                                              |
