@@ -26,7 +26,7 @@ EasyPos is a mobile Point of Sale (POS) application, it's suitable for general s
 [clients]: assets/screenshots/clients.JPG 'Clients'
 [addclient]: assets/screenshots/addclient.JPG 'AddClient'
 [products]: assets/screenshots/products.JPG 'Products'
-[productsearch]: assets/screenshots/productssearch.JPG 'ProductSearch'
+[productsearch]: assets/screenshots/productsearch.JPG 'ProductSearch'
 [productssort]: assets/screenshots/productssort.JPG 'ProductsSort'
 [addproduct1]: assets/screenshots/addproduct1.JPG 'AddProduct #1'
 [addproduct2]: assets/screenshots/addproduct2.JPG 'AddProduct #2'
