@@ -1,11 +1,19 @@
 # Easy POS
-EasyPos is a mobile Point of Sale (POS) application, it's suitable for general stores, restaurants, beauty salons, and more. It can be used offline and automatically backs up data.
+EasyPos is a mobile Point of Sale (POS) application, it's suitable for general stores, restaurants, beauty salons, and more. It can be used offline.
 
+## 📸 Demo
+
+<!-- Table -->
+
+|      Demo       |
+| :---------------: | 
+| ![Demo][demo] |
 
 
 ## 📸 Screenshots
 
 <!-- Variables -->
+[demo]: assets/screenshots/demo.GIF 'Demo'
 
 [home1]: assets/screenshots/home1.JPG 'Home #1'
 [home2]: assets/screenshots/home2.JPG 'Home #2'
@@ -60,6 +68,9 @@ EasyPos is a mobile Point of Sale (POS) application, it's suitable for general s
 | :---------------: | :---------------: | :---------------: |
 | ![ExchangeRate][exchangerate] | ![DeleteDialog][deletedialog] | ![About][about] |
 
+
+## On Changes Made
+I used Cards instead of tables because they provide a visually appealing and digestible presentation of the data, unlike tables, which can appear dense and overwhelming. Additionally, cards allow for better customization, Overall, this shift enhances usability and aesthetics, contributing to a more intuitive and engaging user experience.
 
 ## 📚 Dependencies
 
