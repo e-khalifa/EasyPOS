@@ -7,15 +7,27 @@ EasyPos is a mobile Point of Sale (POS) application, it's suitable for general s
 
 <!-- Variables -->
 
-[home1]: assets/screenshots/Home1.JPG 'Home #1'
-[home2]: assets/screenshots/Home2.JPG 'Home #2'
+[home1]: assets/screenshots/home1.JPG 'Home #1'
+[home2]: assets/screenshots/home2.JPG 'Home #2'
 [drawer]: assets/screenshots/drawer.JPG 'Drawer'
 [categories1]: assets/screenshots/categories1.JPG 'Categories #1'
 [categories2]: assets/screenshots/categories2.JPG 'Categories #2'
 [categories3]: assets/screenshots/categories3.JPG 'Categories #3'
-[add category]: assets/screenshots/Add Category.JPG 'Add Category'
+[addcategory]: assets/screenshots/addcategory.JPG 'AddCategory'
 [clients]: assets/screenshots/clients.JPG 'Clients'
-[add client]: assets/screenshots/Add Client.JPG 'Add Client'
+[addclient]: assets/screenshots/addclient.JPG 'AddClient'
+[products]: assets/screenshots/products.JPG 'Products'
+[productssearch]: assets/screenshots/productssearch.JPG 'ProductsSearch'
+[productssort]: assets/screenshots/productssort.JPG 'ProductsSort'
+[addproduct1]: assets/screenshots/addproduct1.JPG 'AddProduct #1'
+[addproduct2]: assets/screenshots/addproduct2.JPG 'AddProduct #2'
+[allsales]: assets/screenshots/allsales.JPG 'AllSales'
+[newsale1]: assets/screenshots/newsale1.JPG 'NewSale #1'
+[newsale2]: assets/screenshots/newsale2.JPG 'NewSale #2'
+[newsale3]: assets/screenshots/newsale3.JPG 'NewSale #3'
+[exchangerate]: assets/screenshots/exchangerate.JPG 'ExchangeRate'
+[deletedialog]: assets/screenshots/deletedialog.JPG 'DeleteDialog'
+[about]: assets/screenshots/about.JPG 'About'
 
 
 <!-- Table -->
@@ -28,9 +40,25 @@ EasyPos is a mobile Point of Sale (POS) application, it's suitable for general s
 | :---------------------: | :-----------------: | :---------------: |
 | ![Categories #1][categories1] | ![Categories #2][categories1] | ![Categories #3][categories3] |
 
-|      Add Category       |      Clients       |      Add Client       |
+|      AddCategory       |      Clients       |      AddClient       |
 | :---------------: | :---------------: | :---------------: |
-| ![Add Category][add category] | ![Clients][clients] | ![Add Client][add client] |
+| ![AddCategory][addcategory] | ![Clients][clients] | ![AddClient][addclient] |
+
+|        Products        |       ProductsSearch       |      ProductsSort      |
+| :---------------------: | :-----------------: | :---------------: |
+| ![Products][products] | ![ProductsSearch][productssearch] | ![ProductsSort][productssort] |
+
+|      AddProduct #1       |      CAddProduct #2       |      AllSales       |
+| :---------------: | :---------------: | :---------------: |
+| ![AddProduct #1][addproduct1] | ![AddProduct #2][addproduct2] | ![AllSales][allsales] |
+
+|        NewSale #1        |       NewSale #2       |      NewSale #3      |
+| :---------------------: | :-----------------: | :---------------: |
+| ![NewSale #1][newsale1] | ![NewSale #2][newsale2] | ![NewSale #3][newsale3] |
+
+|      ExchangeRate       |      DeleteDialog       |      About       |
+| :---------------: | :---------------: | :---------------: |
+| ![ExchangeRate][exchangerate] | ![DeleteDialog][deletedialog] | ![About][about] |
 
 
 ## 📚 Dependencies
