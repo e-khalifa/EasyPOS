@@ -2,15 +2,9 @@
 EasyPos is a mobile Point of Sale (POS) application, it's suitable for general stores, restaurants, beauty salons, and more. It can be used offline.
 
 ## 📸 Demo
-
-<!-- Variables -->
-[demo]: assets/screenshots/demo.gif 'Demo'
-
-<!-- Table -->
-
-|      Demo       |
-| :---------------: | 
-| ![Demo][demo] |
+<div>
+<img src="https://github.com/e-khalifa/EasyPOS/blob/main/assets/screenshots/demo.gif">
+<div>
 
 
 ## 📸 Screenshots
