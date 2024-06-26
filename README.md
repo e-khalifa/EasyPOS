@@ -7,8 +7,8 @@ EasyPos is a mobile Point of Sale (POS) application, it's suitable for general s
 
 <!-- Variables -->
 
-[home1]: assets/screenshots/Home1.JPG 'Home #1'
-[home2]: assets/screenshots/Home2.JPG 'Home #2'
+[home1]: assets/screenshots/home1.JPG 'Home #1'
+[home2]: assets/screenshots/home2.JPG 'Home #2'
 [drawer]: assets/screenshots/drawer.JPG 'Drawer'
 [categories1]: assets/screenshots/categories1.JPG 'Categories #1'
 [categories2]: assets/screenshots/categories2.JPG 'Categories #2'
