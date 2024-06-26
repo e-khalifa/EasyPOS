@@ -16,6 +16,18 @@ EasyPos is a mobile Point of Sale (POS) application, it's suitable for general s
 [addcategory]: assets/screenshots/addcategory.JPG 'AddCategory'
 [clients]: assets/screenshots/clients.JPG 'Clients'
 [addclient]: assets/screenshots/addclient.JPG 'AddClient'
+[products]: assets/screenshots/products.JPG 'Products'
+[productssearch]: assets/screenshots/productssearch.JPG 'ProductsSearch'
+[productssort]: assets/screenshots/productssort.JPG 'ProductsSort'
+[addproduct1]: assets/screenshots/addproduct1.JPG 'AddProduct #1'
+[addproduct2]: assets/screenshots/addproduct2.JPG 'AddProduct #2'
+[allsales]: assets/screenshots/allsales.JPG 'AllSales'
+[newsale1]: assets/screenshots/newsale1.JPG 'NewSale #1'
+[newsale2]: assets/screenshots/newsale2.JPG 'NewSale #2'
+[newsale3]: assets/screenshots/newsale3.JPG 'NewSale #3'
+[exchangerate]: assets/screenshots/exchangerate.JPG 'ExchangeRate'
+[deletedialog]: assets/screenshots/deletedialog.JPG 'DeleteDialog'
+[about]: assets/screenshots/about.JPG 'About'
 
 
 <!-- Table -->
@@ -31,6 +43,22 @@ EasyPos is a mobile Point of Sale (POS) application, it's suitable for general s
 |      AddCategory       |      Clients       |      AddClient       |
 | :---------------: | :---------------: | :---------------: |
 | ![AddCategory][addcategory] | ![Clients][clients] | ![AddClient][addclient] |
+
+|        Products        |       ProductsSearch       |      ProductsSort      |
+| :---------------------: | :-----------------: | :---------------: |
+| ![Products][products] | ![ProductsSearch][productssearch] | ![ProductsSort][productssort] |
+
+|      AddProduct #1       |      CAddProduct #2       |      AllSales       |
+| :---------------: | :---------------: | :---------------: |
+| ![AddProduct #1][addproduct1] | ![AddProduct #2][addproduct2] | ![AllSales][allsales] |
+
+|        NewSale #1        |       NewSale #2       |      NewSale #3      |
+| :---------------------: | :-----------------: | :---------------: |
+| ![NewSale #1][newsale1] | ![NewSale #2][newsale2] | ![NewSale #3][newsale3] |
+
+|      ExchangeRate       |      DeleteDialog       |      About       |
+| :---------------: | :---------------: | :---------------: |
+| ![ExchangeRate][exchangerate] | ![DeleteDialog][deletedialog] | ![About][about] |
 
 
 ## 📚 Dependencies
