@@ -13,9 +13,9 @@ EasyPos is a mobile Point of Sale (POS) application, it's suitable for general s
 [categories1]: assets/screenshots/categories1.JPG 'Categories #1'
 [categories2]: assets/screenshots/categories2.JPG 'Categories #2'
 [categories3]: assets/screenshots/categories3.JPG 'Categories #3'
-[add category]: assets/screenshots/Add Category.JPG 'Add Category'
+[addcategory]: assets/screenshots/addcategory.JPG 'AddCategory'
 [clients]: assets/screenshots/clients.JPG 'Clients'
-[add client]: assets/screenshots/Add Client.JPG 'Add Client'
+[addclient]: assets/screenshots/addclient.JPG 'AddClient'
 
 
 <!-- Table -->
@@ -28,9 +28,9 @@ EasyPos is a mobile Point of Sale (POS) application, it's suitable for general s
 | :---------------------: | :-----------------: | :---------------: |
 | ![Categories #1][categories1] | ![Categories #2][categories1] | ![Categories #3][categories3] |
 
-|      Add Category       |      Clients       |      Add Client       |
+|      AddCategory       |      Clients       |      AddClient       |
 | :---------------: | :---------------: | :---------------: |
-| ![Add Category][add category] | ![Clients][clients] | ![Add Client][add client] |
+| ![AddCategory][addcategory] | ![Clients][clients] | ![AddClient][addclient] |
 
 
 ## 📚 Dependencies
